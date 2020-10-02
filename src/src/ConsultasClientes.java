@@ -53,6 +53,13 @@ public class ConsultasClientes {
 			mySession.getTransaction().commit();
 			
 		}
+		catch(ServiceException e) {
+			
+			JOptionPane.showMessageDialog(null, "Error del tipo Service Exception, la base de datos no se puede conectar, verifique el puerto");
+		}
+		catch(IdentifierGenerationException e) {
+			JOptionPane.showMessageDialog(null, "Error, la base de datos requiere un tipo de dato ID. Verifique si la tabla es correcta.");
+		}
 		catch(Exception e) {
 			System.out.println("Error del tipo: ");
 			e.printStackTrace();

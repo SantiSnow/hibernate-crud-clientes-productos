@@ -5,12 +5,12 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
-@Table(name="clientes")
+@Table(name="cliente")
 public class Cliente {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="Id")
+	@Column(name="Id", unique=true, nullable = false)
 	private Integer Id;
 	
 	@Column(name="Nombre")
@@ -27,6 +27,10 @@ public class Cliente {
 	
 	@Column(name="Compras")
 	private Integer Compras;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="Id", nullable=false)
+	private DetallesCliente detallesCliente;
 	
 	//constructores
 	public Cliente() {
@@ -76,6 +80,13 @@ public class Cliente {
 	public void setCompras(Integer compras) {
 		Compras = compras;
 	}
+	public DetallesCliente getDetallesCliente() {
+		return detallesCliente;
+	}
+	public void setDetallesCliente(DetallesCliente detallesCliente) {
+		this.detallesCliente = detallesCliente;
+	}
+	
 	//toString
 	@Override
 	public String toString() {

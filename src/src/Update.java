@@ -2,45 +2,39 @@ package src;
 
 import javax.swing.JOptionPane;
 
-import org.hibernate.*;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.id.IdentifierGenerationException;
 import org.hibernate.service.spi.ServiceException;
 
+public class Update {
 
-public class PruebasHibernate {
-	
 	public static void main(String[] args) {
 		//creamos un session factory
-		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
-				.addAnnotatedClass(Cliente.class)
-				.addAnnotatedClass(DetallesCliente.class)
-				.buildSessionFactory();
-		
+		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Cliente.class).buildSessionFactory();
+				
+		//creamos un session
 		Session mySession = myFactory.openSession();
-		
+				
 		try {
+			//criterio de busqueda
+			Integer clienteId = 1;	
 			
-			//creamos un objeto orm
-			Cliente miCliente = new Cliente("Micaela", "Scacciante", "T. Plaza 3400", 11321344, 9);
-			DetallesCliente detallesC = new DetallesCliente("mica@gml.com", "Realiza muchas compras");
-			miCliente.setDetallesCliente(detallesC);
-
 			//creamos la transaccion sql
 			mySession.beginTransaction();
-			
-			//crea la instruccion sql por nosotros
-			mySession.save(miCliente);
+					
+			//clase ORM
+			Cliente miCliente = mySession.get(Cliente.class, clienteId);
+				
+			//actualizacion del dato deseado con un setter
+			miCliente.setNombre("Hernan");
 			
 			mySession.getTransaction().commit();
+					
+			System.out.println("Registro actualizado con exito");
 			
-			Cliente clienteInsertado = mySession.get(Cliente.class, miCliente.getId());
-			
-			System.out.println("El registro insertado fue= " + clienteInsertado.toString());
-			
-			
-			System.out.println("Registro insertado con exito");
-			
+			mySession.close();
 		}
 		catch(ServiceException e) {
 			
@@ -54,10 +48,6 @@ public class PruebasHibernate {
 			e.printStackTrace();
 		}
 		finally {
-			mySession.close();
-			
-			myFactory.close();
-			
 			System.out.println("Fin del programa");
 		}
 
