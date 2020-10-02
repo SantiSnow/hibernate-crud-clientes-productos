@@ -1,5 +1,7 @@
 package src;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -79,6 +81,13 @@ public class Cliente {
 	public String toString() {
 		return "Cliente: Id=" + Id + ", Nombre=" + Nombre + ", Apellido=" + Apellido + ", Direccion=" + Direccion
 				+ ", Telefono=" + Telefono + ", Compras=" + Compras + ".";
+	}
+	
+	//metodos
+	public static void recorrerLista(List<Cliente> lista) {
+		for(Cliente i: lista) {
+			System.out.println(i);
+		}
 	}
 	
 }

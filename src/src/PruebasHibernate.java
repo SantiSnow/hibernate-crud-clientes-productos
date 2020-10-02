@@ -19,7 +19,7 @@ public class PruebasHibernate {
 		try {
 			
 			//creamos un objeto orm
-			Cliente miCliente = new Cliente("Pablo", "Aguirre", "Brandsend 3400", 11321344, 2);
+			Cliente miCliente = new Cliente("Marta", "Perez", "9 de Julio 3400", 11321344, 9);
 
 			//creamos la transaccion sql
 			mySession.beginTransaction();
