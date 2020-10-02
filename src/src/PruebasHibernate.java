@@ -19,7 +19,7 @@ public class PruebasHibernate {
 		try {
 			
 			//creamos un objeto orm
-			Cliente miCliente = new Cliente("Santiago", "Aguirre", "Sequeira 3400", 11321344, 2);
+			Cliente miCliente = new Cliente("Pablo", "Aguirre", "Brandsend 3400", 11321344, 2);
 
 			//creamos la transaccion sql
 			mySession.beginTransaction();
@@ -29,10 +29,21 @@ public class PruebasHibernate {
 			
 			mySession.getTransaction().commit();
 			
+			Cliente clienteInsertado = mySession.get(Cliente.class, miCliente.getId());
+			
+			System.out.println("El registro insertado fue= " + clienteInsertado.toString());
+			
+			
 			System.out.println("Registro insertado con exito");
 			
 		}
-		
+		catch(ServiceException e) {
+			
+			JOptionPane.showMessageDialog(null, "Error del tipo Service Exception, la base de datos no se puede conectar, verifique el puerto");
+		}
+		catch(IdentifierGenerationException e) {
+			JOptionPane.showMessageDialog(null, "Error, la base de datos requiere un tipo de dato ID. Verifique si la tabla es correcta.");
+		}
 		catch(Exception e) {
 			System.out.println("Error del tipo: ");
 			e.printStackTrace();
