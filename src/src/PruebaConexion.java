@@ -7,7 +7,7 @@ public class PruebaConexion {
 	public static void main(String[] args) {
 		
 		//datos conexion mysql
-		String host = "jdbc:mysql://localhost:3306/usuarios?serverTimezone=UTC&useSSL=false";
+		String host = "jdbc:mysql://localhost:3306/hibernate?serverTimezone=UTC&useSSL=false";
 		String usr = "root";
 		String pass = "";
 		
