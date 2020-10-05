@@ -49,6 +49,11 @@ public class DetallesCliente {
 	public void setComentarios(String comentarios) {
 		Comentario = comentarios;
 	}
+	@Override
+	public String toString() {
+		return "Detalles del cliente: Id=" + Id + ", Correo=" + Correo + ", Comentario=" + Comentario + ".";
+	}
+	
 
 	
 	
