@@ -37,9 +37,6 @@ public class Consultas {
 				JOptionPane.showMessageDialog(null, "No se encontro un cliente con ese ID.");
 			}
 			
-			System.out.println(miCliente);
-			System.out.println(detalles);
-			
 			mySession.getTransaction().commit();
 			
 		}

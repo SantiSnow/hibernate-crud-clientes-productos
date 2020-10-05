@@ -30,10 +30,12 @@ public class Update {
 					
 			//clase ORM
 			Cliente miCliente = mySession.get(Cliente.class, clienteId);
+			DetallesCliente detalles = mySession.get(DetallesCliente.class, clienteId);
 			
 			JOptionPane.showMessageDialog(null, "Cliente con ID: " + clienteId + "\n" + "Nombre: " + miCliente.getNombre() + " " + miCliente.getApellido() + "\nTelefono: " + miCliente.getTelefono() + "\nDirección: " + miCliente.getDireccion());
+			JOptionPane.showMessageDialog(null, "Correo: " + detalles.getCorreo() + "\nComentarios: " + detalles.getComentarios());
 			
-			int opcion = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese 1 para actualizar nombre \n2 para cambiar el apellido \n3 para cambiar el telefono \no 4 para actualizar la dirección:"));
+			int opcion = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese 1 para actualizar nombre \n2 para cambiar el apellido \n3 para cambiar el telefono \n4 para actualizar la dirección \n5 para cambiar el correo \nO 6 para cambiar los comentarios:"));
 
 			switch (opcion) {
 			case 1:
@@ -54,6 +56,14 @@ public class Update {
 				String nuevaDireccion = JOptionPane.showInputDialog(null, "Ingrese nueva direccion del cliente: ");
 				miCliente.setDireccion(nuevaDireccion);
 				break;
+			case 5:
+				String correo = JOptionPane.showInputDialog(null, "Ingrese nueva direccion del cliente: ");
+				detalles.setCorreo(correo);
+				break;
+			case 6:
+				String comentarios = JOptionPane.showInputDialog(null, "Ingrese nueva direccion del cliente: ");
+				detalles.setComentarios(comentarios);
+				break;
 			default:
 				
 				break;
@@ -64,7 +74,7 @@ public class Update {
 			JOptionPane.showMessageDialog(null, "Registro actualizado con exito");
 			System.out.println("Registro actualizado con exito");
 			
-			mySession.close();
+			
 		}
 		catch(ServiceException e) {
 			
@@ -78,6 +88,10 @@ public class Update {
 			e.printStackTrace();
 		}
 		finally {
+			
+			mySession.close();
+			myFactory.close();
+			
 			System.out.println("Fin del programa");
 		}
 

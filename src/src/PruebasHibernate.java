@@ -21,9 +21,17 @@ public class PruebasHibernate {
 		
 		try {
 			
+			String nombre = JOptionPane.showInputDialog(null, "Ingrese nombre del cliente: ");
+			String apellido = JOptionPane.showInputDialog(null, "Ingrese apellido del cliente: ");
+			String direccion = JOptionPane.showInputDialog(null, "Ingrese dirección del cliente: ");
+			Integer telefono = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese telefono del cliente: "));
+			Integer compras = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese cantidad de compras del cliente: "));
+			String correo = JOptionPane.showInputDialog(null, "Ingrese correo del cliente: ");
+			String comentarios = JOptionPane.showInputDialog(null, "Ingrese comentarios del cliente: ");
+			
 			//creamos un objeto orm
-			Cliente miCliente = new Cliente("Micaela", "Scacciante", "T. Plaza 3400", 11321344, 9);
-			DetallesCliente detallesC = new DetallesCliente("mica@gml.com", "Realiza muchas compras");
+			Cliente miCliente = new Cliente(nombre, apellido, direccion, telefono, compras);
+			DetallesCliente detallesC = new DetallesCliente(correo, comentarios);
 			miCliente.setDetallesCliente(detallesC);
 
 			//creamos la transaccion sql
@@ -36,10 +44,8 @@ public class PruebasHibernate {
 			
 			Cliente clienteInsertado = mySession.get(Cliente.class, miCliente.getId());
 			
-			System.out.println("El registro insertado fue= " + clienteInsertado.toString());
+			JOptionPane.showMessageDialog(null, "El registro insertado fue= \n" + clienteInsertado.toString());
 			
-			
-			System.out.println("Registro insertado con exito");
 			
 		}
 		catch(ServiceException e) {
