@@ -12,7 +12,11 @@ public class Delete {
 
 	public static void main(String[] args) {
 		//creamos un session factory
-		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Cliente.class).buildSessionFactory();
+		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+				.addAnnotatedClass(Cliente.class)
+				.addAnnotatedClass(DetallesCliente.class)
+				.addAnnotatedClass(Pedido.class)
+				.buildSessionFactory();
 				
 		//creamos un session
 		Session mySession = myFactory.openSession();

@@ -1,5 +1,6 @@
 package src;
 
+import java.util.*;
 import javax.swing.JOptionPane;
 
 import org.hibernate.*;
@@ -7,8 +8,10 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.id.IdentifierGenerationException;
 import org.hibernate.service.spi.ServiceException;
 
+import view.Demo2;
 
-public class Insert {
+
+public class ConsultarPedidos {
 	
 	public static void main(String[] args) {
 		//creamos un session factory
@@ -22,31 +25,16 @@ public class Insert {
 		
 		try {
 			
-			String nombre = JOptionPane.showInputDialog(null, "Ingrese nombre del cliente: ");
-			String apellido = JOptionPane.showInputDialog(null, "Ingrese apellido del cliente: ");
-			String direccion = JOptionPane.showInputDialog(null, "Ingrese dirección del cliente: ");
-			Integer telefono = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese telefono del cliente: "));
-			Integer compras = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese cantidad de compras del cliente: "));
-			String correo = JOptionPane.showInputDialog(null, "Ingrese correo del cliente: ");
-			String comentarios = JOptionPane.showInputDialog(null, "Ingrese comentarios del cliente: ");
-			
-			//creamos un objeto orm
-			Cliente miCliente = new Cliente(nombre, apellido, direccion, telefono, compras);
-			DetallesCliente detallesC = new DetallesCliente(correo, comentarios);
-			miCliente.setDetallesCliente(detallesC);
-
+			Integer idCliente = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese id del cliente cuyos pedidos busca: "));
 			//creamos la transaccion sql
 			mySession.beginTransaction();
 			
-			//crea la instruccion sql por nosotros
-			mySession.save(miCliente);
+			Cliente miCliente = mySession.get(Cliente.class, idCliente);
+			List<Pedido> pedidos = miCliente.getPedidos();
 			
+			Demo2 demo1 = new Demo2(pedidos);
+
 			mySession.getTransaction().commit();
-			
-			Cliente clienteInsertado = mySession.get(Cliente.class, miCliente.getId());
-			
-			JOptionPane.showMessageDialog(null, "El registro insertado fue= \n" + clienteInsertado.toString());
-			
 			
 		}
 		catch(ServiceException e) {
