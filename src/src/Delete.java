@@ -29,7 +29,6 @@ public class Delete {
 					
 			System.out.println("Registros eliminados con exito");
 			
-			mySession.close();
 		}
 		catch(ServiceException e) {
 			JOptionPane.showMessageDialog(null, "Error del tipo Service Exception, la base de datos no se puede conectar, verifique el puerto");
@@ -42,6 +41,10 @@ public class Delete {
 			e.printStackTrace();
 		}
 		finally {
+			
+			mySession.close();
+			myFactory.close();
+			
 			System.out.println("Fin del programa");
 		}
 
