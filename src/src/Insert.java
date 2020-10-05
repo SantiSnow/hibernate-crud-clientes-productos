@@ -8,7 +8,7 @@ import org.hibernate.id.IdentifierGenerationException;
 import org.hibernate.service.spi.ServiceException;
 
 
-public class PruebasHibernate {
+public class Insert {
 	
 	public static void main(String[] args) {
 		//creamos un session factory

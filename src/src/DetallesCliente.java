@@ -51,7 +51,7 @@ public class DetallesCliente {
 	}
 	@Override
 	public String toString() {
-		return "Detalles del cliente: Id=" + Id + ", Correo=" + Correo + ", Comentario=" + Comentario + ".";
+		return "Detalles del cliente: Id=" + Id + "\nCorreo=" + Correo + "\nComentario=" + Comentario + ".";
 	}
 	
 

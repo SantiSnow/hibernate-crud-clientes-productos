@@ -10,6 +10,8 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.id.IdentifierGenerationException;
 import org.hibernate.service.spi.ServiceException;
 
+import view.*;
+
 public class ConsultasClientes {
 
 	public static void main(String[] args) {
@@ -17,8 +19,11 @@ public class ConsultasClientes {
 		List<Cliente> listaClientes;
 		
 		//creamos un session factory
-		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Cliente.class).buildSessionFactory();
-				
+		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+				.addAnnotatedClass(Cliente.class)
+				.addAnnotatedClass(DetallesCliente.class)
+				.buildSessionFactory();
+		
 		//creamos un session
 		Session mySession = myFactory.openSession();
 		
@@ -32,6 +37,8 @@ public class ConsultasClientes {
 			System.out.println("Lista completa de Clientes: ");
 			
 			Cliente.recorrerLista(listaClientes);
+			
+			Demo demo1 = new Demo(listaClientes);
 			
 			//consulta con filtros, empleados con la edad 24
 			listaClientes = mySession.createQuery("from Cliente cl where cl.Compras=2").getResultList();

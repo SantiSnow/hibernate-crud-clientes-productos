@@ -1,5 +1,6 @@
 package src;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -31,6 +32,9 @@ public class Cliente {
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="Id", nullable=false)
 	private DetallesCliente detallesCliente;
+	
+	@OneToMany(mappedBy = "cliente", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
+	private List<Pedido> pedidos;
 	
 	//constructores
 	public Cliente() {
@@ -90,8 +94,8 @@ public class Cliente {
 	//toString
 	@Override
 	public String toString() {
-		return "Cliente: Id=" + Id + ", Nombre=" + Nombre + ", Apellido=" + Apellido + ", Direccion=" + Direccion
-				+ ", Telefono=" + Telefono + ", Compras=" + Compras + ".";
+		return "Cliente: Id=" + Id + "\nNombre=" + Nombre + ", Apellido=" + Apellido + "\nDireccion=" + Direccion
+				+ "\nTelefono=" + Telefono + "\nCompras=" + Compras + ".";
 	}
 	
 	//metodos
@@ -99,6 +103,23 @@ public class Cliente {
 		for(Cliente i: lista) {
 			System.out.println(i);
 		}
+	}
+	
+	public Boolean agregarPedido(Pedido ped) {
+		
+		if(pedidos == null) {
+			pedidos = new ArrayList<Pedido>();
+			
+			pedidos.add(ped);
+			
+			ped.setCliente(this);
+		}
+		else {
+			pedidos.add(ped);
+			ped.setCliente(this);
+		}
+		
+		return true;
 	}
 	
 }
