@@ -5,9 +5,6 @@ import java.util.Calendar;
 import javax.swing.JOptionPane;
 
 import org.hibernate.*;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.id.IdentifierGenerationException;
-import org.hibernate.service.spi.ServiceException;
 
 
 public class InsertPedido {

@@ -11,10 +11,14 @@ import org.hibernate.id.IdentifierGenerationException;
 import org.hibernate.service.spi.ServiceException;
 
 import src.Cliente;
+import src.DeletePedido;
+import src.DeleteRegistro;
 import src.DetallesCliente;
 import src.Insert;
 import src.InsertPedido;
 import src.Pedido;
+import src.Update;
+import src.UpdatePedido;
 
 public class Main {
 
@@ -29,6 +33,7 @@ public class Main {
 		Session mySession = myFactory.openSession();
 		
 		try {
+			
 			//insertar cliente
 			String nombre = JOptionPane.showInputDialog(null, "Ingrese nombre del cliente: ");
 			String apellido = JOptionPane.showInputDialog(null, "Ingrese apellido del cliente: ");
@@ -46,6 +51,22 @@ public class Main {
 			String pago = JOptionPane.showInputDialog(null, "Ingrese forma de pago del cliente: ");
 			
 			InsertPedido.insertarPedido(myFactory, mySession, idCliente, fecha, pago);
+			
+			//eliminar cliente
+			Integer idClienteEliminar = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese ID del cliente a eliminar: "));
+			DeleteRegistro.deletePedido(myFactory, mySession, idClienteEliminar);
+			
+			//eliminar pedido
+			Integer idPedidoEliminar = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese id del pedido a eliminar: "));
+			DeletePedido.deletePedidos(myFactory, mySession, idPedidoEliminar);
+			
+			//update cliente
+			Integer clienteIdUpdate = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese ID del cliente a actualizar"));
+			Update.UpdateCliente(clienteIdUpdate, myFactory, mySession);
+			
+			//update pedido
+			Integer idPedidoUpdate = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese id del pedido a cambiar: "));
+			UpdatePedido.updatePedido(myFactory, mySession, idPedidoUpdate);
 			
 		}
 		catch(ServiceException e) {
