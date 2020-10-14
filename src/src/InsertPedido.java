@@ -12,61 +12,24 @@ import org.hibernate.service.spi.ServiceException;
 
 public class InsertPedido {
 	
-	public static void main(String[] args) {
-		//creamos un session factory
-		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
-				.addAnnotatedClass(Cliente.class)
-				.addAnnotatedClass(DetallesCliente.class)
-				.addAnnotatedClass(Pedido.class)
-				.buildSessionFactory();
+	public static void insertarPedido(SessionFactory myFactory, Session mySession, Integer idCliente, Calendar fecha, String pago) throws Exception {
+		//creamos objetos orm
+		Cliente miCliente = mySession.get(Cliente.class, idCliente);
+		Pedido miPedido = new Pedido(fecha.getTime(), pago, miCliente);
 		
-		Session mySession = myFactory.openSession();
+		miCliente.agregarPedido(miPedido);
+
+		//creamos la transaccion sql
+		mySession.beginTransaction();
 		
-		try {
-			
-			Integer idCliente = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese id del cliente que realiza el pedido: "));
-			Calendar fecha = Calendar.getInstance();
-			String pago = JOptionPane.showInputDialog(null, "Ingrese forma de pago del cliente: ");
-			
-			//creamos objetos orm
-			Cliente miCliente = mySession.get(Cliente.class, idCliente);
-			Pedido miPedido = new Pedido(fecha.getTime(), pago, miCliente);
-			
-			miCliente.agregarPedido(miPedido);
-
-			//creamos la transaccion sql
-			mySession.beginTransaction();
-			
-			//crea la instruccion sql por nosotros
-			mySession.save(miPedido);
-			
-			mySession.getTransaction().commit();
-			
-			Pedido pedidoInsertado = mySession.get(Pedido.class, miPedido.getId());
-			
-			JOptionPane.showMessageDialog(null, "El registro insertado fue: \n" + pedidoInsertado.toString() + "\nCliente: " + miCliente.getNombre() + " " + miCliente.getApellido());
-			
-			
-		}
-		catch(ServiceException e) {
-			
-			JOptionPane.showMessageDialog(null, "Error del tipo Service Exception, la base de datos no se puede conectar, verifique el puerto");
-		}
-		catch(IdentifierGenerationException e) {
-			JOptionPane.showMessageDialog(null, "Error, la base de datos requiere un tipo de dato ID. Verifique si la tabla es correcta.");
-		}
-		catch(Exception e) {
-			System.out.println("Error del tipo: ");
-			e.printStackTrace();
-		}
-		finally {
-			mySession.close();
-			
-			myFactory.close();
-			
-			System.out.println("Fin del programa");
-		}
-
+		//crea la instruccion sql por nosotros
+		mySession.save(miPedido);
+		
+		mySession.getTransaction().commit();
+		
+		Pedido pedidoInsertado = mySession.get(Pedido.class, miPedido.getId());
+		
+		JOptionPane.showMessageDialog(null, "El registro insertado fue: \n" + pedidoInsertado.toString() + "\nCliente: " + miCliente.getNombre() + " " + miCliente.getApellido());
 	}
 
 }
