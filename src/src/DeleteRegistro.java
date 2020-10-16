@@ -7,7 +7,10 @@ import org.hibernate.SessionFactory;
 
 public class DeleteRegistro {
 	
-	public static void deletePedido(SessionFactory myFactory, Session mySession, Integer idCliente) throws Exception{
+	public static void deleteCliente(SessionFactory myFactory, Session mySession, Integer idCliente) throws Exception{
+		
+		mySession.beginTransaction();
+		
 		Cliente miCliente = mySession.get(Cliente.class, idCliente);
 		DetallesCliente detalles = mySession.get(DetallesCliente.class, idCliente);
 		

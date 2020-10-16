@@ -73,7 +73,7 @@ public class Main {
 				
 				//eliminar cliente
 				Integer idClienteEliminar = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese ID del cliente a eliminar: "));
-				DeleteRegistro.deletePedido(myFactory, mySession, idClienteEliminar);
+				DeleteRegistro.deleteCliente(myFactory, mySession, idClienteEliminar);
 				
 				break;
 			case 4:

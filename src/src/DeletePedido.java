@@ -8,11 +8,11 @@ import org.hibernate.*;
 public class DeletePedido {
 	
 	public static void deletePedidos(SessionFactory myFactory, Session mySession, Integer idPedido) throws Exception {
-		Pedido miPedido = mySession.get(Pedido.class, idPedido);
-
 		//creamos la transaccion sql
 		mySession.beginTransaction();
 		
+		Pedido miPedido = mySession.get(Pedido.class, idPedido);
+
 		if(miPedido != null) {
 			JOptionPane.showMessageDialog(null, miPedido.toString() + "\nCliente: " + miPedido.getCliente().getNombre() + " " + miPedido.getCliente().getApellido());
 					
