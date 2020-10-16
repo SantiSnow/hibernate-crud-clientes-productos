@@ -4,15 +4,21 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import src.Cliente;
+import src.ConsultarPedidos;
+import src.Consultas;
 import src.DeletePedido;
 import src.DeleteRegistro;
 import src.Insert;
 import src.InsertPedido;
+import src.Pedido;
 
 import javax.swing.*;
 
@@ -61,6 +67,7 @@ public class Ventana extends JFrame{
 		JButton boton8 = new JButton("Ver todos los pedidos");
 		JButton boton9 = new JButton("Crear cliente");
 		JButton boton10 = new JButton("Crear pedido");
+		JButton boton11 = new JButton("Limpiar");
 		
 		boton1.setBounds(35, 150, 200, 30);
 		boton2.setBounds(35, 200, 200, 30);
@@ -72,6 +79,7 @@ public class Ventana extends JFrame{
 		boton8.setBounds(35, 500, 200, 30);
 		boton9.setBounds(35, 550, 200, 30);
 		boton10.setBounds(35, 600, 200, 30);
+		boton11.setBounds(35, 650, 200, 30);
 		
 		miPanel.add(boton1);
 		miPanel.add(boton2);
@@ -83,6 +91,7 @@ public class Ventana extends JFrame{
 		miPanel.add(boton8);
 		miPanel.add(boton9);
 		miPanel.add(boton10);
+		miPanel.add(boton11);
 		
 		JTextArea visor = new JTextArea(); 
 		visor.setBounds(300, 150, 800, 550);
@@ -106,7 +115,18 @@ public class Ventana extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				Integer idCliente = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese ID del cliente a buscar"));
 				
+				Cliente clienteEncontrado = Consultas.buscarCliente(sF, mySession, idCliente);
+				
 				visor.append("\nID del cliente ingresado: " + idCliente);
+				visor.append("\nNombre  del cliente ingresado: " + clienteEncontrado.getNombre());
+				visor.append("\nApellido  del cliente ingresado: " + clienteEncontrado.getApellido());
+				visor.append("\nDirección del cliente ingresado: " + clienteEncontrado.getDireccion());
+				visor.append("\nCompras del cliente ingresado: " + clienteEncontrado.getCompras());
+				visor.append("\nTelefono  del cliente ingresado: " + clienteEncontrado.getTelefono());
+				visor.append("\nTelefono  del cliente ingresado: " + clienteEncontrado.getTelefono());
+				visor.append("\nCorreo  del cliente ingresado: " + clienteEncontrado.getDetallesCliente().getCorreo());
+				visor.append("\nComentarios  del cliente ingresado: " + clienteEncontrado.getDetallesCliente().getComentarios());
+				
 			}
 		};
 		
@@ -117,6 +137,18 @@ public class Ventana extends JFrame{
 				Integer idCliente = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese ID del cliente para buscar sus pedidos"));
 				
 				visor.append("\nID del cliente ingresado:" + idCliente);
+				
+				List <Pedido> listaPedidos = ConsultarPedidos.consultaPedido(sF, mySession, idCliente);
+				
+				for (Pedido i: listaPedidos){
+					visor.append("\nPedido:");
+					visor.append("\nID del pedido: " + i.getId());
+					visor.append("\nForma de pago: " + i.getFormaPago());
+					visor.append("\nTelefono del cliente: " + i.getCliente().getTelefono());
+					visor.append("\nNombre del cliente que pidio: " + i.getCliente().getNombre());
+					visor.append("\n ");
+					visor.append("\n ");
+				}
 			}
 		};
 		
@@ -197,6 +229,14 @@ public class Ventana extends JFrame{
 			}
 		};
 		
+		ActionListener limpiar = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				visor.setText(" ");
+			}
+			
+		};
+		
 		//cargar todos los action listener
 		boton1.addActionListener(buscarCliente);
 		boton2.addActionListener(buscarPedido);
@@ -205,6 +245,7 @@ public class Ventana extends JFrame{
 		
 		boton9.addActionListener(crearCliente);
 		boton10.addActionListener(crearPedido);
+		boton11.addActionListener(limpiar);
 		
 	}
 
