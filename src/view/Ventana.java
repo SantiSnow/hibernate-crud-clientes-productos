@@ -2,6 +2,8 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
@@ -16,8 +18,7 @@ public class Ventana extends JFrame{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		iniciarComponentes();
-		agregarBotones();
-		agregarVisor();
+		agregarComponentes();
 		
 		setVisible(true);
 		
@@ -39,7 +40,7 @@ public class Ventana extends JFrame{
 
 	}
 	
-	private void agregarBotones() {
+	private void agregarComponentes() {
 		//boton1
 		JButton boton1 = new JButton("Actualizar clientes");
 		JButton boton2 = new JButton("Actualizar pedidos");
@@ -68,9 +69,6 @@ public class Ventana extends JFrame{
 		miPanel.add(boton7);
 		miPanel.add(boton8);
 		
-	}
-	
-	private void agregarVisor() {
 		JTextArea visor = new JTextArea(); 
 		visor.setBounds(300, 150, 800, 550);
 		visor.setBackground(Color.WHITE);
@@ -81,6 +79,19 @@ public class Ventana extends JFrame{
 		scroll.setBackground(Color.WHITE);
 		
 		miPanel.add(scroll);
+		
+		ActionListener action = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				visor.append("\nTexto agregado");
+				
+			}
+		};
+		
+		boton1.addActionListener(action);
+		
 	}
 
 }
