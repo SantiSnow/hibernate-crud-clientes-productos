@@ -14,6 +14,7 @@ import org.hibernate.SessionFactory;
 import src.Cliente;
 import src.ConsultarPedidos;
 import src.Consultas;
+import src.ConsultasGenerales;
 import src.DeletePedido;
 import src.DeleteRegistro;
 import src.Insert;
@@ -106,9 +107,6 @@ public class Ventana extends JFrame{
 		
 		
 		
-		
-		
-		
 		//buscar cliente
 		ActionListener buscarCliente = new ActionListener() {
 			@Override
@@ -117,15 +115,17 @@ public class Ventana extends JFrame{
 				
 				Cliente clienteEncontrado = Consultas.buscarCliente(sF, mySession, idCliente);
 				
+				visor.append("\nCliente hallado: ");
 				visor.append("\nID del cliente ingresado: " + idCliente);
 				visor.append("\nNombre  del cliente ingresado: " + clienteEncontrado.getNombre());
 				visor.append("\nApellido  del cliente ingresado: " + clienteEncontrado.getApellido());
 				visor.append("\nDirección del cliente ingresado: " + clienteEncontrado.getDireccion());
 				visor.append("\nCompras del cliente ingresado: " + clienteEncontrado.getCompras());
 				visor.append("\nTelefono  del cliente ingresado: " + clienteEncontrado.getTelefono());
-				visor.append("\nTelefono  del cliente ingresado: " + clienteEncontrado.getTelefono());
 				visor.append("\nCorreo  del cliente ingresado: " + clienteEncontrado.getDetallesCliente().getCorreo());
 				visor.append("\nComentarios  del cliente ingresado: " + clienteEncontrado.getDetallesCliente().getComentarios());
+				visor.append("\n ");
+				visor.append("\n ");
 				
 			}
 		};
@@ -181,6 +181,50 @@ public class Ventana extends JFrame{
 			}
 		};
 		
+		//ver todos los clientes
+		ActionListener verClientes = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				List <Cliente> listaClientes = ConsultasGenerales.listaDeClientes(sF, mySession);
+				
+				for (Cliente i: listaClientes){
+					visor.append("\nCliente:");
+					visor.append("\nNombre: " + i.getNombre() + " " + i.getApellido());
+					visor.append("\nDirección: " + i.getDireccion());
+					visor.append("\nCompras: " + i.getCompras());
+					visor.append("\nID del cliente: " + i.getId());
+					visor.append("\nTelefono: " + i.getTelefono());
+					visor.append("\nCorreo: " + i.getDetallesCliente().getCorreo());
+					visor.append("\nComentarios: " + i.getDetallesCliente().getComentarios());
+					
+					visor.append("\n ");
+					visor.append("\n ");
+				}
+			}
+		};
+		
+		//ver todos los pedidos
+		ActionListener verPedidos = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				List <Pedido> listaPedidos = ConsultasGenerales.listaDePedidos(sF, mySession);
+				
+				for (Pedido i: listaPedidos){
+					visor.append("\nPedido:");
+					visor.append("\nID del pedido: " + i.getId());
+					visor.append("\nForma de pago: " + i.getFormaPago());
+					visor.append("\nTelefono del cliente: " + i.getCliente().getTelefono());
+					visor.append("\nNombre del cliente que pidio: " + i.getCliente().getNombre());
+					visor.append("\n ");
+					visor.append("\n ");
+				}
+				
+			}
+		};
 		
 		
 		//crear cliente
@@ -208,6 +252,8 @@ public class Ventana extends JFrame{
 				visor.append("\nCorreo ingresado: "+ correo);
 				visor.append("\nComentarios ingresados: "+ comentarios);
 				visor.append("\n "+ comentarios);
+				visor.append("\n ");
+				visor.append("\n ");
 			}
 		};
 		
@@ -243,6 +289,8 @@ public class Ventana extends JFrame{
 		boton3.addActionListener(eliminarCliente);
 		boton4.addActionListener(eliminarPedido);
 		
+		boton7.addActionListener(verClientes);
+		boton8.addActionListener(verPedidos);
 		boton9.addActionListener(crearCliente);
 		boton10.addActionListener(crearPedido);
 		boton11.addActionListener(limpiar);
