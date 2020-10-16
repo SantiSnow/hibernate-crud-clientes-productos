@@ -11,7 +11,7 @@ import org.hibernate.service.spi.ServiceException;
 public class Update {
 
 	
-	public static void UpdateCliente(Integer clienteId, SessionFactory myFactory, Session mySession) throws Exception{
+	public static Cliente UpdateCliente(Integer clienteId, SessionFactory myFactory, Session mySession) {
 		//creamos la transaccion sql
 		mySession.beginTransaction();
 				
@@ -22,44 +22,46 @@ public class Update {
 		JOptionPane.showMessageDialog(null, "Cliente con ID: " + clienteId + "\n" + "Nombre: " + miCliente.getNombre() + " " + miCliente.getApellido() + "\nTelefono: " + miCliente.getTelefono() + "\nDirección: " + miCliente.getDireccion());
 		JOptionPane.showMessageDialog(null, "Correo: " + detalles.getCorreo() + "\nComentarios: " + detalles.getComentarios());
 		
-		int opcion = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese 1 para actualizar nombre \n2 para cambiar el apellido \n3 para cambiar el telefono \n4 para actualizar la dirección \n5 para cambiar el correo \nO 6 para cambiar los comentarios:"));
+		if(miCliente != null) {
+			int opcion = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese 1 para actualizar nombre \n2 para cambiar el apellido \n3 para cambiar el telefono \n4 para actualizar la dirección \n5 para cambiar el correo \nO 6 para cambiar los comentarios:"));
 
-		switch (opcion) {
-		case 1:
-			//actualizacion del dato deseado con un setter
-			String nuevoNombre = JOptionPane.showInputDialog(null, "Ingrese nuevo nombre del cliente: ");
-			miCliente.setNombre(nuevoNombre);
-			break;
+			switch (opcion) {
+			case 1:
+				//actualizacion del dato deseado con un setter
+				String nuevoNombre = JOptionPane.showInputDialog(null, "Ingrese nuevo nombre del cliente: ");
+				miCliente.setNombre(nuevoNombre);
+				break;
 
-		case 2:
-			String nuevoapellido = JOptionPane.showInputDialog(null, "Ingrese nuevo apellido del cliente: ");
-			miCliente.setApellido(nuevoapellido);
-			break;
-		case 3:
-			Integer nuevoTel = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese nuevo telefono del cliente"));
-			miCliente.setTelefono(nuevoTel);
-			break;
-		case 4:
-			String nuevaDireccion = JOptionPane.showInputDialog(null, "Ingrese nueva direccion del cliente: ");
-			miCliente.setDireccion(nuevaDireccion);
-			break;
-		case 5:
-			String correo = JOptionPane.showInputDialog(null, "Ingrese nueva direccion del cliente: ");
-			detalles.setCorreo(correo);
-			break;
-		case 6:
-			String comentarios = JOptionPane.showInputDialog(null, "Ingrese nueva direccion del cliente: ");
-			detalles.setComentarios(comentarios);
-			break;
-		default:
+			case 2:
+				String nuevoapellido = JOptionPane.showInputDialog(null, "Ingrese nuevo apellido del cliente: ");
+				miCliente.setApellido(nuevoapellido);
+				break;
+			case 3:
+				Integer nuevoTel = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese nuevo telefono del cliente"));
+				miCliente.setTelefono(nuevoTel);
+				break;
+			case 4:
+				String nuevaDireccion = JOptionPane.showInputDialog(null, "Ingrese nueva direccion del cliente: ");
+				miCliente.setDireccion(nuevaDireccion);
+				break;
+			case 5:
+				String correo = JOptionPane.showInputDialog(null, "Ingrese nueva direccion del cliente: ");
+				detalles.setCorreo(correo);
+				break;
+			case 6:
+				String comentarios = JOptionPane.showInputDialog(null, "Ingrese nueva direccion del cliente: ");
+				detalles.setComentarios(comentarios);
+				break;
+			default:
+				
+				break;
+			}
 			
-			break;
+			mySession.getTransaction().commit();
+			
+			JOptionPane.showMessageDialog(null, "Registro actualizado con exito");
+			System.out.println("Registro actualizado con exito");
 		}
-		
-		mySession.getTransaction().commit();
-		
-		JOptionPane.showMessageDialog(null, "Registro actualizado con exito");
-		System.out.println("Registro actualizado con exito");
+		return miCliente;
 	}
-
 }

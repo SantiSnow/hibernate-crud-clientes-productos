@@ -10,7 +10,7 @@ import org.hibernate.service.spi.ServiceException;
 
 public class UpdatePedido {
 	
-	public static void updatePedido(SessionFactory myFactory, Session mySession, Integer idPedido) {
+	public static Pedido updatePedido(SessionFactory myFactory, Session mySession, Integer idPedido) {
 		Pedido miPedido = mySession.get(Pedido.class, idPedido);
 
 		//creamos la transaccion sql
@@ -44,6 +44,8 @@ public class UpdatePedido {
 		}
 		
 		mySession.getTransaction().commit();
+		
+		return miPedido;
 	}
 
 }

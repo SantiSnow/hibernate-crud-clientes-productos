@@ -20,6 +20,8 @@ import src.DeleteRegistro;
 import src.Insert;
 import src.InsertPedido;
 import src.Pedido;
+import src.Update;
+import src.UpdatePedido;
 
 import javax.swing.*;
 
@@ -181,6 +183,48 @@ public class Ventana extends JFrame{
 			}
 		};
 		
+		//actualizar clientes
+		ActionListener actualizarCliente = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Integer clienteIdUpdate = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese ID del cliente a actualizar"));
+				
+				Cliente cActualizado = Update.UpdateCliente(clienteIdUpdate, sF, mySession);
+				
+				visor.append("\nCliente actualizado: ");
+				visor.append("\nID del cliente actualizado: " + cActualizado);
+				visor.append("\nNombre  del cliente actualizado: " + cActualizado.getNombre());
+				visor.append("\nApellido  del cliente actualizado: " + cActualizado.getApellido());
+				visor.append("\nDirección del cliente actualizado: " + cActualizado.getDireccion());
+				visor.append("\nCompras del cliente actualizado: " + cActualizado.getCompras());
+				visor.append("\nTelefono  del cliente actualizado: " + cActualizado.getTelefono());
+				visor.append("\nCorreo  del cliente actualizado: " + cActualizado.getDetallesCliente().getCorreo());
+				visor.append("\nComentarios  del cliente actualizado: " + cActualizado.getDetallesCliente().getComentarios());
+				visor.append("\n ");
+				visor.append("\n ");
+			}
+		};
+		
+		//actualizar pedidos
+		ActionListener actualizarPedidos = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Integer idPedido = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese ID del pedido a actualizar"));
+				Pedido pActualizado = UpdatePedido.updatePedido(sF, mySession, idPedido);
+				
+				visor.append("\nPedido actualizado:");
+				visor.append("\nID del pedido: " + pActualizado.getId());
+				visor.append("\nForma de pago: " + pActualizado.getFormaPago());
+				visor.append("\nTelefono del cliente: " + pActualizado.getCliente().getTelefono());
+				visor.append("\nNombre del cliente que pidio: " + pActualizado.getCliente().getNombre());
+				visor.append("\n ");
+				visor.append("\n ");
+				
+			}
+		};
+		
 		//ver todos los clientes
 		ActionListener verClientes = new ActionListener() {
 			
@@ -288,6 +332,9 @@ public class Ventana extends JFrame{
 		boton2.addActionListener(buscarPedido);
 		boton3.addActionListener(eliminarCliente);
 		boton4.addActionListener(eliminarPedido);
+		
+		boton5.addActionListener(actualizarCliente);
+		boton6.addActionListener(actualizarPedidos);
 		
 		boton7.addActionListener(verClientes);
 		boton8.addActionListener(verPedidos);
