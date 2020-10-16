@@ -1,13 +1,8 @@
 package view;
-import javax.swing.JFrame;
 
-import javax.swing.JPanel;
-import java.awt.BorderLayout;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JTextArea;
-import javax.swing.JButton;
+import javax.swing.*;
 
 import src.Cliente;
 

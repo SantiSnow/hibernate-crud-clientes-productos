@@ -1,6 +1,7 @@
 package test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Calendar;
 
@@ -27,6 +28,18 @@ public class TestSistema {
 	@AfterClass
 	public static void avisoFinDeLosTest() {
 		JOptionPane.showMessageDialog(null, "El test del Sistema ha finalizado, compruebe los resultados");
+	}
+	
+	//test de prueba de conexion
+	public void testParaProbarLaConexion() {
+		
+		//creamos un session factory
+		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Cliente.class)
+			.addAnnotatedClass(DetallesCliente.class)
+			.addAnnotatedClass(Pedido.class)
+			.buildSessionFactory();
+		
 	}
 	
 	//test que prueba si la insersion de clientes es correcta
@@ -157,7 +170,7 @@ public class TestSistema {
 	}
 	
 	//test que prueba si la eliminacion de clientes es correcta
-	@Test
+	@Ignore
 	public void testParaEliminarClientes() {
 		//creamos un session factory
 				SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
@@ -217,8 +230,8 @@ public class TestSistema {
 				}		
 	}
 	
-	//test que prueba si la eliminacion de pedidos de clientes es correcta
-	@Test
+	//test que prueba si la eliminacion de pedidos de clientes es correcta, ignorado para no eliminar ahora clientes ni pedidos
+	@Ignore
 	public void testParaEliminarPedidos() {
 		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
 				.addAnnotatedClass(Cliente.class)

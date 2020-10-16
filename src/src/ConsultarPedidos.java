@@ -13,6 +13,20 @@ import view.Demo2;
 
 public class ConsultarPedidos {
 	
+	public static void consultaPedido(SessionFactory myFactory, Session mySession, Integer idCliente) {
+		
+		//creamos la transaccion sql
+		mySession.beginTransaction();
+		
+		Cliente miCliente = mySession.get(Cliente.class, idCliente);
+		List<Pedido> pedidos = miCliente.getPedidos();
+		
+		Demo2 demo1 = new Demo2(pedidos);
+
+		mySession.getTransaction().commit();
+		
+	}
+	/*
 	public static void main(String[] args) {
 		//creamos un session factory
 		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
@@ -57,5 +71,5 @@ public class ConsultarPedidos {
 		}
 
 	}
-
+*/
 }
