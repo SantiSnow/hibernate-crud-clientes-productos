@@ -51,8 +51,8 @@ public class Ventana extends JFrame{
 		
 		//agregamos titulo
 		JLabel titulo = new JLabel();
-		titulo.setText("Aplicacion de práctica");
-		titulo.setBounds(15, 15, 350, 30);
+		titulo.setText("Gestor de Clientes y Pedidos");
+		titulo.setBounds(15, 15, 450, 30);
 		titulo.setFont(new Font("arial", Font.BOLD, 30));
 		miPanel.add(titulo);
 
@@ -270,7 +270,6 @@ public class Ventana extends JFrame{
 			}
 		};
 		
-		
 		//crear cliente
 		ActionListener crearCliente = new ActionListener() {
 			@Override
@@ -308,14 +307,18 @@ public class Ventana extends JFrame{
 				//insertar pedido
 				Integer idCliente = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese id del cliente que realiza el pedido: "));
 				Calendar fecha = Calendar.getInstance();
-				String pago = JOptionPane.showInputDialog(null, "Ingrese forma de pago del cliente: ");
+				
+				String [] metodosPago = {"Tarjeta", "Efectivo", "Cheque", "Pagare", "Transferencia"};
+				
+				String metodoElegido = (String) JOptionPane.showInputDialog(null,"Seleccione forma de pago del cliente: ", "Elegir",JOptionPane.QUESTION_MESSAGE,null, metodosPago, metodosPago[1]);
+				
 				try {
-					InsertPedido.insertarPedido(sF, mySession, idCliente, fecha, pago);
+					InsertPedido.insertarPedido(sF, mySession, idCliente, fecha, metodoElegido);
 				} catch (Exception exception) {
 					System.out.println(exception);
 				}
 				visor.append("\nID de cliente ingresado: " + idCliente);
-				visor.append("\nMetodo de pago ingresado: " + pago);
+				visor.append("\nMetodo de pago ingresado: " + metodoElegido);
 			}
 		};
 		
