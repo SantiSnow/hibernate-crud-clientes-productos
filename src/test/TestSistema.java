@@ -14,9 +14,11 @@ import org.hibernate.id.IdentifierGenerationException;
 import org.hibernate.service.spi.ServiceException;
 import org.junit.*;
 
-import src.Cliente;
-import src.DetallesCliente;
-import src.Pedido;
+import model.Cliente;
+import model.DetallesCliente;
+import model.Pedido;
+import src.Insert;
+import src.UpdatePedido;
 
 
 public class TestSistema {
@@ -31,6 +33,7 @@ public class TestSistema {
 	}
 	
 	//test de prueba de conexion
+	@Test
 	public void testParaProbarLaConexion() {
 		
 		//creamos un session factory
@@ -40,72 +43,39 @@ public class TestSistema {
 			.addAnnotatedClass(Pedido.class)
 			.buildSessionFactory();
 		
+		Session mySession = myFactory.openSession();
+		
+		myFactory.close();
+		
+		mySession.close();
+		
 	}
 	
 	//test que prueba si la insersion de clientes es correcta
 	@Test
 	public void testParaInsertarClientes() {
-		//creamos un session factory
 		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
-			.addAnnotatedClass(Cliente.class)
-			.addAnnotatedClass(DetallesCliente.class)
-			.addAnnotatedClass(Pedido.class)
-			.buildSessionFactory();
-				
-		Session mySession = myFactory.openSession();
+				.addAnnotatedClass(Cliente.class)
+				.addAnnotatedClass(DetallesCliente.class)
+				.addAnnotatedClass(Pedido.class)
+				.buildSessionFactory();
 		
+		Session mySession = myFactory.openSession();
+		//insertar cliente
+		String nombre = JOptionPane.showInputDialog(null, "Ingrese nombre del cliente: ");
+		String apellido = JOptionPane.showInputDialog(null, "Ingrese apellido del cliente: ");
+		String direccion = JOptionPane.showInputDialog(null, "Ingrese dirección del cliente: ");
+		Integer telefono = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese telefono del cliente: "));
+		Integer compras = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese cantidad de compras del cliente: "));
+		String correo = JOptionPane.showInputDialog(null, "Ingrese correo del cliente: ");
+		String comentarios = JOptionPane.showInputDialog(null, "Ingrese comentarios del cliente: ");
 		try {
+			Cliente clienteInsertado = Insert.insertarCliente(nombre, apellido, direccion, telefono, compras, correo, comentarios, myFactory, mySession);
 			
-			String nombre = JOptionPane.showInputDialog(null, "Ingrese nombre del cliente: ");
-			String apellido = JOptionPane.showInputDialog(null, "Ingrese apellido del cliente: ");
-			String direccion = JOptionPane.showInputDialog(null, "Ingrese dirección del cliente: ");
-			Integer telefono = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese telefono del cliente: "));
-			Integer compras = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese cantidad de compras del cliente: "));
-			String correo = JOptionPane.showInputDialog(null, "Ingrese correo del cliente: ");
-			String comentarios = JOptionPane.showInputDialog(null, "Ingrese comentarios del cliente: ");
+			Assert.assertFalse(clienteInsertado == null);
 			
-			//creamos un objeto orm
-			Cliente miCliente = new Cliente(nombre, apellido, direccion, telefono, compras);
-			DetallesCliente detallesC = new DetallesCliente(correo, comentarios);
-			miCliente.setDetallesCliente(detallesC);
-
-			//creamos la transaccion sql
-			mySession.beginTransaction();
-			
-			//crea la instruccion sql por nosotros
-			mySession.save(miCliente);
-			
-			mySession.getTransaction().commit();
-			
-			Cliente clienteInsertado = mySession.get(Cliente.class, miCliente.getId());
-			assertEquals(nombre, clienteInsertado.getNombre());
-			assertEquals(apellido, clienteInsertado.getApellido());
-			assertEquals(direccion, clienteInsertado.getDireccion());
-			assertEquals(telefono, clienteInsertado.getTelefono());
-			assertEquals(compras, clienteInsertado.getCompras());
-			
-			
-			JOptionPane.showMessageDialog(null, "El registro insertado fue= \n" + clienteInsertado.toString());
-			
-			
-		}
-		catch(ServiceException e) {
-			
-			JOptionPane.showMessageDialog(null, "Error del tipo Service Exception, la base de datos no se puede conectar, verifique el puerto");
-		}
-		catch(IdentifierGenerationException e) {
-			JOptionPane.showMessageDialog(null, "Error, la base de datos requiere un tipo de dato ID. Verifique si la tabla es correcta.");
-		}
-		catch(Exception e) {
-			System.out.println("Error del tipo: ");
-			e.printStackTrace();
-		}
-		finally {
-			mySession.close();
-			
-			myFactory.close();
-			
-			System.out.println("Fin del programa");
+		} catch (Exception exception) {
+			System.out.println(exception);
 		}
 	}
 	
@@ -292,70 +262,26 @@ public class TestSistema {
 	//test que prueba si la actualizacion de pedidos de clientes es correcta
 	@Test
 	public void testParaActualizarPedidos() {
-		//creamos un session factory
 		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
-			.addAnnotatedClass(Cliente.class)
-			.addAnnotatedClass(DetallesCliente.class)
-			.addAnnotatedClass(Pedido.class)
-			.buildSessionFactory();
-			
-		Session mySession = myFactory.openSession();
-				
-		try {
-				
-			Integer idPedido = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese id del pedido a cambiar: "));
-				
-			Pedido miPedido = mySession.get(Pedido.class, idPedido);
-
-			//creamos la transaccion sql
-			mySession.beginTransaction();
-					
-			if(miPedido != null) {
-				JOptionPane.showMessageDialog(null, miPedido.toString() + "\nCliente: " + miPedido.getCliente().getNombre() + " " + miPedido.getCliente().getApellido());
-								
-				int opcion = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese 1 para actualizar la forma de pago \nIngrese 2 para cambiar el ID del cliente:"));
-						
-				switch (opcion) {
-					case 1:
-						String formaPago = JOptionPane.showInputDialog(null, "Ingrese forma de pago: ");
-						miPedido.setFormaPago(formaPago);
-						JOptionPane.showMessageDialog(null, "Pedido actualizado correctamente.");
-						break;
-
-					case 2:
-						Integer idCliente = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese id del cliente: "));
-						Cliente nuevoCliente = mySession.get(Cliente.class, idCliente);
-						miPedido.setCliente(nuevoCliente);
-						JOptionPane.showMessageDialog(null, "Pedido actualizado correctamente.");
-						break;
-					default:		
-						break;
-					}
-			}
-			else {
-				JOptionPane.showMessageDialog(null, "No se encontro un pedido con ese ID.");
-			}
+				.addAnnotatedClass(Cliente.class)
+				.addAnnotatedClass(DetallesCliente.class)
+				.addAnnotatedClass(Pedido.class)
+				.buildSessionFactory();
 		
-			mySession.getTransaction().commit();
-					
+		Session mySession = myFactory.openSession();
+		
+		try {
+			Integer idPedido = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese ID del pedido a actualizar"));
+			Pedido pedidoAct = UpdatePedido.updatePedido(myFactory, mySession, idPedido);
+			
+			Assert.assertTrue(pedidoAct != null);
+			
 		}
-		catch(ServiceException e) {
-					
-			JOptionPane.showMessageDialog(null, "Error del tipo Service Exception, la base de datos no se puede conectar, verifique el puerto");
-		}
-		catch(IdentifierGenerationException e) {
-			JOptionPane.showMessageDialog(null, "Error, la base de datos requiere un tipo de dato ID. Verifique si la tabla es correcta.");
-		}
-		catch(Exception e) {
-			System.out.println("Error del tipo: ");
-			e.printStackTrace();
-		}
-		finally {
-			mySession.close();		
-			myFactory.close();
-			System.out.println("Fin del programa");
+		catch (Exception e) {
+			
 		}
 	}
+	
 	
 	//test que prueba si la actualizacion de clientes es correcta
 	@Test

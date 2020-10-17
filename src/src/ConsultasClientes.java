@@ -10,6 +10,9 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.id.IdentifierGenerationException;
 import org.hibernate.service.spi.ServiceException;
 
+import model.Cliente;
+import model.DetallesCliente;
+import model.Pedido;
 import view.*;
 
 public class ConsultasClientes {

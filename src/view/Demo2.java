@@ -7,10 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JTextArea;
-import javax.swing.JButton;
 
-import src.Cliente;
-import src.Pedido;
+import model.Cliente;
+import model.Pedido;
+
+import javax.swing.JButton;
 
 public class Demo2 extends JFrame {
 

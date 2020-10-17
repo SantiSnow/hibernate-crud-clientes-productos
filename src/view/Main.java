@@ -4,9 +4,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import src.Cliente;
-import src.DetallesCliente;
-import src.Pedido;
+import model.Cliente;
+import model.DetallesCliente;
+import model.Pedido;
 
 public class Main {
 
@@ -24,7 +24,7 @@ public class Main {
 			Ventana miVentana = new Ventana(myFactory, mySession);
 			
 		}finally {
-			System.out.println("Fin del programa");
+			//System.out.println("Fin del programa");
 		}
 	}
 }

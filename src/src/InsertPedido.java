@@ -6,6 +6,9 @@ import javax.swing.JOptionPane;
 
 import org.hibernate.*;
 
+import model.Cliente;
+import model.Pedido;
+
 
 public class InsertPedido {
 	

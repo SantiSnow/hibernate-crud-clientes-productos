@@ -4,9 +4,12 @@ import javax.swing.JOptionPane;
 
 import org.hibernate.*;
 
+import model.Cliente;
+import model.DetallesCliente;
+
 public class Insert {
 	
-	public static void insertarCliente(String nombre, String apellido, String direccion, Integer telefono, Integer compras, String correo, String comentarios, SessionFactory myFactory, Session mySession) throws Exception {
+	public static Cliente insertarCliente(String nombre, String apellido, String direccion, Integer telefono, Integer compras, String correo, String comentarios, SessionFactory myFactory, Session mySession) throws Exception {
 		Cliente miCliente = new Cliente(nombre, apellido, direccion, telefono, compras);
 		DetallesCliente detallesC = new DetallesCliente(correo, comentarios);
 		miCliente.setDetallesCliente(detallesC);
@@ -22,5 +25,7 @@ public class Insert {
 		Cliente clienteInsertado = mySession.get(Cliente.class, miCliente.getId());
 		
 		JOptionPane.showMessageDialog(null, "El registro insertado fue= \n" + clienteInsertado.toString());
+		
+		return clienteInsertado;
 	}
 }

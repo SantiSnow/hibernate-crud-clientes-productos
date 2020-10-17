@@ -7,6 +7,9 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.id.IdentifierGenerationException;
 import org.hibernate.service.spi.ServiceException;
 
+import model.Cliente;
+import model.Pedido;
+
 
 public class UpdatePedido {
 	
@@ -41,6 +44,8 @@ public class UpdatePedido {
 		}
 		else {
 			JOptionPane.showMessageDialog(null, "No se encontro un pedido con ese ID.");
+			
+			return miPedido;
 		}
 		
 		mySession.getTransaction().commit();

@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.swing.*;
 
-import src.Cliente;
+import model.Cliente;
 
 public class Demo extends JFrame {
 

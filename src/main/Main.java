@@ -10,15 +10,15 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.id.IdentifierGenerationException;
 import org.hibernate.service.spi.ServiceException;
 
-import src.Cliente;
+import model.Cliente;
+import model.DetallesCliente;
+import model.Pedido;
 import src.ConsultarPedidos;
 import src.Consultas;
 import src.DeletePedido;
 import src.DeleteRegistro;
-import src.DetallesCliente;
 import src.Insert;
 import src.InsertPedido;
-import src.Pedido;
 import src.Update;
 import src.UpdatePedido;
 

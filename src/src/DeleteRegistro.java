@@ -4,6 +4,10 @@ import javax.swing.JOptionPane;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.type.YesNoType;
+
+import model.Cliente;
+import model.DetallesCliente;
 
 public class DeleteRegistro {
 	
@@ -18,9 +22,11 @@ public class DeleteRegistro {
 			JOptionPane.showMessageDialog(null, "Id del cliente: " + miCliente.getId() + "\nNombre: " + miCliente.getNombre() + " " + miCliente.getApellido() + "\nTelefono: " + miCliente.getTelefono() + "\nDireccion: " + miCliente.getDireccion() + "\nCompras: " + miCliente.getCompras());
 			JOptionPane.showMessageDialog(null, "Detalles del cliente: " + detalles.getCorreo() + "\nComentarios: " + detalles.getComentarios());
 			
-			Integer opcion = Integer.parseInt(JOptionPane.showInputDialog(null, "¿Desea realmente borrar estos registros?\nIngrese 1 para eliminar y continuar, o 2 para no borrarlo."));
+			//Integer opcion = Integer.parseInt(JOptionPane.showInputDialog(null, "¿Desea realmente borrar estos registros?\nIngrese 1 para eliminar y continuar, o 2 para no borrarlo."));
 			
-			if(opcion == 1) {
+			Integer eleccion = JOptionPane.showConfirmDialog(null, "¿Desea realmente borrar estos registros?", "Borrar cliente", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+			
+			if(eleccion == 0) {
 				mySession.delete(miCliente);
 				JOptionPane.showMessageDialog(null, "Cliente y datos borrados.");
 			}

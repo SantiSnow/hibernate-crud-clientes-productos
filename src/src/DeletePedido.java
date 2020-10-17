@@ -4,6 +4,8 @@ import javax.swing.JOptionPane;
 
 import org.hibernate.*;
 
+import model.Pedido;
+
 
 public class DeletePedido {
 	

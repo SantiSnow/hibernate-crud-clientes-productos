@@ -11,7 +11,8 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import src.Cliente;
+import model.Cliente;
+import model.Pedido;
 import src.ConsultarPedidos;
 import src.Consultas;
 import src.ConsultasGenerales;
@@ -19,7 +20,6 @@ import src.DeletePedido;
 import src.DeleteRegistro;
 import src.Insert;
 import src.InsertPedido;
-import src.Pedido;
 import src.Update;
 import src.UpdatePedido;
 
@@ -44,7 +44,7 @@ public class Ventana extends JFrame{
 	
 	private void iniciarComponentes(){
 		//agregamos un panel
-		miPanel = new Panel();
+		miPanel = new JPanel();
 		miPanel.setBackground(Color.white);
 		miPanel.setLayout(null);
 		add(miPanel);
@@ -55,6 +55,12 @@ public class Ventana extends JFrame{
 		titulo.setBounds(15, 15, 450, 30);
 		titulo.setFont(new Font("arial", Font.BOLD, 30));
 		miPanel.add(titulo);
+		
+		JLabel instruccion = new JLabel();
+		instruccion.setText("Aquí aparecerán los resultados de sus consultas:");
+		instruccion.setBounds(300, 100, 450, 30);
+		instruccion.setFont(new Font("arial", Font.PLAIN, 15));
+		miPanel.add(instruccion);
 
 	}
 	
@@ -99,7 +105,6 @@ public class Ventana extends JFrame{
 		JTextArea visor = new JTextArea(); 
 		visor.setBounds(300, 150, 800, 550);
 		visor.setBackground(Color.WHITE);
-		visor.setText("Aquí se colocarán los resultados de su consulta");
 		
 		JScrollPane scroll = new JScrollPane(visor);
 		scroll.setBounds(300, 150, 800, 550);
@@ -322,6 +327,7 @@ public class Ventana extends JFrame{
 			}
 		};
 		
+		//limpia el visor
 		ActionListener limpiar = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

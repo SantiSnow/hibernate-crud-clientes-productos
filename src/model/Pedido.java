@@ -1,4 +1,4 @@
-package src;
+package model;
 
 import javax.persistence.*;
 import java.util.*;
