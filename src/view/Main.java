@@ -4,9 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import model.Cliente;
-import model.DetallesCliente;
-import model.Pedido;
+import model.*;
 
 public class Main {
 
@@ -16,6 +14,7 @@ public class Main {
 			.addAnnotatedClass(Cliente.class)
 			.addAnnotatedClass(DetallesCliente.class)
 			.addAnnotatedClass(Pedido.class)
+			.addAnnotatedClass(Producto.class)
 			.buildSessionFactory();
 						
 		Session mySession = myFactory.openSession();

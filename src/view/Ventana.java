@@ -4,24 +4,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import model.Cliente;
-import model.Pedido;
-import src.ConsultarPedidos;
-import src.Consultas;
-import src.ConsultasGenerales;
-import src.DeletePedido;
-import src.DeleteRegistro;
-import src.Insert;
-import src.InsertPedido;
-import src.Update;
-import src.UpdatePedido;
+import model.*;
+import src.*;
 
 import javax.swing.*;
 
@@ -29,10 +19,26 @@ public class Ventana extends JFrame{
 	
 	JPanel miPanel;
 	
+	JButton boton1;
+	JButton boton2;
+	JButton boton3;
+	JButton boton4;
+	JButton boton5;
+	JButton boton6;
+	JButton boton7;
+	JButton boton8;
+	JButton boton9;
+	JButton boton10;
+	JButton boton11;
+	JButton boton12;
+	
+	JTextArea visor;
+	JScrollPane scroll;
+	
 	public Ventana(SessionFactory sF, Session mySession){
 		//x, y
-		setSize(1200, 800);
-		setTitle("Test");
+		setSize(1200, 900);
+		setTitle("Gestor de bases de datos MySQL");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		iniciarComponentes();
@@ -64,19 +70,22 @@ public class Ventana extends JFrame{
 
 	}
 	
+	
+	
 	private void agregarComponentes(SessionFactory sF, Session mySession){
 		//boton1
-		JButton boton1 = new JButton("Buscar clientes por ID");
-		JButton boton2 = new JButton("Buscar pedidos por ID");
-		JButton boton3 = new JButton("Eliminar clientes");
-		JButton boton4 = new JButton("Eliminar pedidos");
-		JButton boton5 = new JButton("Actualizar un cliente");
-		JButton boton6 = new JButton("Actualizar pedidos del cliente");
-		JButton boton7 = new JButton("Ver todos los clientes");
-		JButton boton8 = new JButton("Ver todos los pedidos");
-		JButton boton9 = new JButton("Crear cliente");
-		JButton boton10 = new JButton("Crear pedido");
-		JButton boton11 = new JButton("Limpiar");
+		boton1 = new JButton("Buscar clientes por ID");
+		boton2 = new JButton("Buscar pedidos por ID");
+		boton3 = new JButton("Eliminar clientes");
+		boton4 = new JButton("Eliminar pedidos");
+		boton5 = new JButton("Actualizar un cliente");
+		boton6 = new JButton("Actualizar pedidos del cliente");
+		boton7 = new JButton("Ver todos los clientes");
+		boton8 = new JButton("Ver todos los pedidos");
+		boton9 = new JButton("Crear cliente");
+		boton10 = new JButton("Crear pedido");
+		boton12 = new JButton("Crear producto");
+		boton11 = new JButton("Limpiar");
 		
 		boton1.setBounds(35, 150, 200, 30);
 		boton2.setBounds(35, 200, 200, 30);
@@ -88,7 +97,34 @@ public class Ventana extends JFrame{
 		boton8.setBounds(35, 500, 200, 30);
 		boton9.setBounds(35, 550, 200, 30);
 		boton10.setBounds(35, 600, 200, 30);
-		boton11.setBounds(35, 650, 200, 30);
+		boton12.setBounds(35, 650, 200, 30);
+		boton11.setBounds(35, 700, 200, 30);
+		
+		boton1.setBackground(new Color(0, 153, 204));
+		boton2.setBackground(new Color(0, 153, 204));
+		boton3.setBackground(new Color(255, 0, 0));
+		boton4.setBackground(new Color(255, 0, 0));
+		boton5.setBackground(new Color(0, 153, 0));
+		boton6.setBackground(new Color(0, 153, 0));
+		boton7.setBackground(new Color(0, 153, 204));
+		boton8.setBackground(new Color(0, 153, 204));
+		boton9.setBackground(new Color(0, 153, 204));
+		boton10.setBackground(new Color(0, 153, 204));
+		boton11.setBackground(new Color(255, 0, 0));
+		boton12.setBackground(new Color(0, 153, 204));
+		
+		boton1.setForeground(Color.WHITE);
+		boton2.setForeground(Color.WHITE);
+		boton3.setForeground(Color.WHITE);
+		boton4.setForeground(Color.WHITE);
+		boton5.setForeground(Color.WHITE);
+		boton6.setForeground(Color.WHITE);
+		boton7.setForeground(Color.WHITE);
+		boton8.setForeground(Color.WHITE);
+		boton9.setForeground(Color.WHITE);
+		boton10.setForeground(Color.WHITE);
+		boton11.setForeground(Color.WHITE);
+		boton12.setForeground(Color.WHITE);
 		
 		miPanel.add(boton1);
 		miPanel.add(boton2);
@@ -101,12 +137,13 @@ public class Ventana extends JFrame{
 		miPanel.add(boton9);
 		miPanel.add(boton10);
 		miPanel.add(boton11);
+		miPanel.add(boton12);
 		
-		JTextArea visor = new JTextArea(); 
+		visor = new JTextArea(); 
 		visor.setBounds(300, 150, 800, 550);
 		visor.setBackground(Color.WHITE);
 		
-		JScrollPane scroll = new JScrollPane(visor);
+		scroll = new JScrollPane(visor);
 		scroll.setBounds(300, 150, 800, 550);
 		scroll.setBackground(Color.WHITE);
 		
@@ -327,6 +364,34 @@ public class Ventana extends JFrame{
 			}
 		};
 		
+		//crear cliente
+		ActionListener crearProducto = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//insertar cliente
+				String nombre = JOptionPane.showInputDialog(null, "Ingrese nombre del producto: ");
+				Integer stock = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese stock del producto: "));
+				Integer precio = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese precio del producto: "));
+				String detalle = JOptionPane.showInputDialog(null, "Ingrese detalle del producto: ");
+				String seccion = JOptionPane.showInputDialog(null, "Ingrese seccion del producto: ");
+				try {
+					Producto miProducto = InsertProducto.insertarPrducto(sF, mySession, nombre, precio, stock, detalle, seccion);
+					if(miProducto != null) {
+						visor.append(miProducto.getNombre() + " Insertado correctamente.");
+					}
+				} catch (Exception exception) {
+					System.out.println(exception);
+				}
+				visor.append("\nNombre ingresado: " + nombre);
+				visor.append("\nStock ingresado: " + stock);
+				visor.append("\nPrecio ingresado: "+ precio);
+				visor.append("\nDetalle ingresado: "+ detalle);
+				visor.append("\nSección ingresadas: "+ seccion);
+				visor.append("\n ");
+				visor.append("\n ");
+			}
+		};
+		
 		//limpia el visor
 		ActionListener limpiar = new ActionListener() {
 			@Override
@@ -350,6 +415,7 @@ public class Ventana extends JFrame{
 		boton9.addActionListener(crearCliente);
 		boton10.addActionListener(crearPedido);
 		boton11.addActionListener(limpiar);
+		boton12.addActionListener(crearProducto);
 		
 	}
 
