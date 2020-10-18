@@ -31,6 +31,7 @@ public class Ventana extends JFrame{
 	JButton boton10;
 	JButton boton11;
 	JButton boton12;
+	JButton boton13;
 	
 	JTextArea visor;
 	JScrollPane scroll;
@@ -76,6 +77,7 @@ public class Ventana extends JFrame{
 		//boton1
 		boton1 = new JButton("Buscar clientes por ID");
 		boton2 = new JButton("Buscar pedidos por ID");
+		boton13 = new JButton("Buscar producto por ID");
 		boton3 = new JButton("Eliminar clientes");
 		boton4 = new JButton("Eliminar pedidos");
 		boton5 = new JButton("Actualizar un cliente");
@@ -89,19 +91,21 @@ public class Ventana extends JFrame{
 		
 		boton1.setBounds(35, 150, 200, 30);
 		boton2.setBounds(35, 200, 200, 30);
-		boton3.setBounds(35, 250, 200, 30);
-		boton4.setBounds(35, 300, 200, 30);
-		boton5.setBounds(35, 350, 200, 30);
-		boton6.setBounds(35, 400, 200, 30);
-		boton7.setBounds(35, 450, 200, 30);
-		boton8.setBounds(35, 500, 200, 30);
-		boton9.setBounds(35, 550, 200, 30);
-		boton10.setBounds(35, 600, 200, 30);
-		boton12.setBounds(35, 650, 200, 30);
-		boton11.setBounds(35, 700, 200, 30);
+		boton13.setBounds(35, 250, 200, 30);
+		boton3.setBounds(35, 300, 200, 30);
+		boton4.setBounds(35, 350, 200, 30);
+		boton5.setBounds(35, 400, 200, 30);
+		boton6.setBounds(35, 450, 200, 30);
+		boton7.setBounds(35, 500, 200, 30);
+		boton8.setBounds(35, 550, 200, 30);
+		boton9.setBounds(35, 600, 200, 30);
+		boton10.setBounds(35, 650, 200, 30);
+		boton12.setBounds(35, 700, 200, 30);
+		boton11.setBounds(35, 750, 200, 30);
 		
 		boton1.setBackground(new Color(0, 153, 204));
 		boton2.setBackground(new Color(0, 153, 204));
+		boton13.setBackground(new Color(0, 153, 204));
 		boton3.setBackground(new Color(255, 0, 0));
 		boton4.setBackground(new Color(255, 0, 0));
 		boton5.setBackground(new Color(0, 153, 0));
@@ -112,6 +116,7 @@ public class Ventana extends JFrame{
 		boton10.setBackground(new Color(0, 153, 204));
 		boton11.setBackground(new Color(255, 0, 0));
 		boton12.setBackground(new Color(0, 153, 204));
+		
 		
 		boton1.setForeground(Color.WHITE);
 		boton2.setForeground(Color.WHITE);
@@ -125,6 +130,7 @@ public class Ventana extends JFrame{
 		boton10.setForeground(Color.WHITE);
 		boton11.setForeground(Color.WHITE);
 		boton12.setForeground(Color.WHITE);
+		boton13.setForeground(Color.WHITE);
 		
 		miPanel.add(boton1);
 		miPanel.add(boton2);
@@ -138,6 +144,7 @@ public class Ventana extends JFrame{
 		miPanel.add(boton10);
 		miPanel.add(boton11);
 		miPanel.add(boton12);
+		miPanel.add(boton13);
 		
 		visor = new JTextArea(); 
 		visor.setBounds(300, 150, 800, 550);
@@ -193,6 +200,24 @@ public class Ventana extends JFrame{
 					visor.append("\n ");
 					visor.append("\n ");
 				}
+			}
+		};
+		
+		//buscar productos
+		ActionListener buscarProducto = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Integer idProd = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese ID del producto a buscar"));
+				Producto productoEncontrado = ConsultarProductos.consultaProducto(sF, mySession, idProd);
+				
+				visor.append("\nID del producto: " + productoEncontrado.getId());
+				visor.append("\nNombre del producto: " + productoEncontrado.getNombre());
+				visor.append("\nPrecio del producto: " + productoEncontrado.getPrecio());
+				visor.append("\nStock del producto: " + productoEncontrado.getStock());
+				visor.append("\nDetalle del producto: " + productoEncontrado.getDetalle());
+				visor.append("\nSeccion del producto: " + productoEncontrado.getSeccion());
+				visor.append("\n");
+				visor.append("\n");
 			}
 		};
 		
@@ -364,7 +389,7 @@ public class Ventana extends JFrame{
 			}
 		};
 		
-		//crear cliente
+		//crear producto
 		ActionListener crearProducto = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -373,7 +398,10 @@ public class Ventana extends JFrame{
 				Integer stock = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese stock del producto: "));
 				Integer precio = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese precio del producto: "));
 				String detalle = JOptionPane.showInputDialog(null, "Ingrese detalle del producto: ");
-				String seccion = JOptionPane.showInputDialog(null, "Ingrese seccion del producto: ");
+				
+				String [] seccionesDisp = {"Informatica", "Libreria", "Textiles", "Deportes", "Muebles"};
+				String seccion = (String) JOptionPane.showInputDialog(null,"Elija la sección: ", "Elegir",JOptionPane.QUESTION_MESSAGE,null, seccionesDisp, seccionesDisp[1]);
+				
 				try {
 					Producto miProducto = InsertProducto.insertarPrducto(sF, mySession, nombre, precio, stock, detalle, seccion);
 					if(miProducto != null) {
@@ -416,6 +444,7 @@ public class Ventana extends JFrame{
 		boton10.addActionListener(crearPedido);
 		boton11.addActionListener(limpiar);
 		boton12.addActionListener(crearProducto);
+		boton13.addActionListener(buscarProducto);
 		
 	}
 
