@@ -19,7 +19,7 @@ public static Producto consultaProducto(SessionFactory myFactory, Session mySess
 			mySession.getTransaction().commit();
 			return miProducto;
 		}
-		JOptionPane.showMessageDialog(null, "No se encontro un cliente con ese ID.");
+		JOptionPane.showMessageDialog(null, "No se encontro un producto con ese ID.");
 		mySession.getTransaction().commit();
 		return null;
 	}

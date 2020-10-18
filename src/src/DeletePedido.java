@@ -22,6 +22,7 @@ public class DeletePedido {
 			if(opcion == 1) {
 				mySession.delete(miPedido);
 				JOptionPane.showMessageDialog(null, "Pedido borrado.");
+				mySession.getTransaction().commit();
 			}
 			else {
 				JOptionPane.showMessageDialog(null, "El pedido no fue borrado.");
