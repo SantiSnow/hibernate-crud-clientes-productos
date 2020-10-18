@@ -41,7 +41,7 @@ public class Ventana extends JFrame{
 	
 	public Ventana(SessionFactory sF, Session mySession){
 		//x, y
-		setSize(1200, 900);
+		setSize(1400, 900);
 		setTitle("Gestor de bases de datos MySQL");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -62,8 +62,8 @@ public class Ventana extends JFrame{
 		
 		//agregamos titulo
 		JLabel titulo = new JLabel();
-		titulo.setText("Gestor de Clientes y Pedidos");
-		titulo.setBounds(15, 15, 450, 30);
+		titulo.setText("Gestor de Clientes, Pedidos y Productos");
+		titulo.setBounds(15, 15, 600, 30);
 		titulo.setFont(new Font("arial", Font.BOLD, 30));
 		miPanel.add(titulo);
 		
@@ -87,27 +87,34 @@ public class Ventana extends JFrame{
 		boton5 = new JButton("Actualizar un cliente");
 		boton6 = new JButton("Actualizar pedidos del cliente");
 		boton15 = new JButton("Actualizar producto");
+		
 		boton7 = new JButton("Ver todos los clientes");
 		boton8 = new JButton("Ver todos los pedidos");
+		boton16 = new JButton("Ver todos los productos");
 		boton9 = new JButton("Crear cliente");
 		boton10 = new JButton("Crear pedido");
 		boton12 = new JButton("Crear producto");
 		boton11 = new JButton("Limpiar");
 				
-		boton1.setBounds(35, 150, 200, 30);
-		boton2.setBounds(35, 200, 200, 30);
-		boton13.setBounds(35, 250, 200, 30);
-		boton3.setBounds(35, 300, 200, 30);
-		boton4.setBounds(35, 350, 200, 30);
-		boton14.setBounds(35, 400, 200, 30);
-		boton5.setBounds(35, 450, 200, 30);
-		boton6.setBounds(35, 500, 200, 30);
-		boton15.setBounds(35, 550, 200, 30);
-		boton7.setBounds(35, 600, 200, 30);
-		boton8.setBounds(35, 650, 200, 30);
-		boton9.setBounds(35, 700, 200, 30);
-		boton10.setBounds(35, 750, 200, 30);
-		boton12.setBounds(35, 800, 200, 30);
+		//botones a la izq
+		
+		boton3.setBounds(35, 150, 200, 30);
+		boton4.setBounds(35, 200, 200, 30);
+		boton14.setBounds(35, 250, 200, 30);
+		boton5.setBounds(35, 300, 200, 30);
+		boton6.setBounds(35, 350, 200, 30);
+		boton15.setBounds(35, 400, 200, 30);
+		boton9.setBounds(35, 450, 200, 30);
+		boton10.setBounds(35, 500, 200, 30);
+		boton12.setBounds(35, 550, 200, 30);
+		
+		//botones a la derecha
+		boton7.setBounds(1150, 150, 200, 30);
+		boton8.setBounds(1150, 200, 200, 30);
+		boton13.setBounds(1150, 250, 200, 30);
+		boton16.setBounds(1150, 300, 200, 30);
+		boton1.setBounds(1150, 350, 200, 30);
+		boton2.setBounds(1150, 400, 200, 30);
 				
 		//bajo el visor
 		boton11.setBounds(300, 720, 200, 30);
@@ -123,6 +130,7 @@ public class Ventana extends JFrame{
 		boton15.setBackground(new Color(0, 153, 0));
 		boton7.setBackground(new Color(0, 153, 204));
 		boton8.setBackground(new Color(0, 153, 204));
+		boton16.setBackground(new Color(0, 153, 204));
 		boton9.setBackground(new Color(0, 153, 204));
 		boton10.setBackground(new Color(0, 153, 204));
 		boton11.setBackground(new Color(255, 0, 0));
@@ -144,22 +152,24 @@ public class Ventana extends JFrame{
 		boton13.setForeground(Color.WHITE);
 		boton14.setForeground(Color.WHITE);
 		boton15.setForeground(Color.WHITE);
+		boton16.setForeground(Color.WHITE);
 				
-				miPanel.add(boton1);
-				miPanel.add(boton2);
-				miPanel.add(boton3);
-				miPanel.add(boton4);
-				miPanel.add(boton5);
-				miPanel.add(boton6);
-				miPanel.add(boton7);
-				miPanel.add(boton8);
-				miPanel.add(boton9);
-				miPanel.add(boton10);
-				miPanel.add(boton11);
-				miPanel.add(boton12);
-				miPanel.add(boton13);
-				miPanel.add(boton14);
-				miPanel.add(boton15);
+		miPanel.add(boton1);
+		miPanel.add(boton2);
+		miPanel.add(boton3);
+		miPanel.add(boton4);
+		miPanel.add(boton5);
+		miPanel.add(boton6);
+		miPanel.add(boton7);
+		miPanel.add(boton8);
+		miPanel.add(boton9);
+		miPanel.add(boton10);
+		miPanel.add(boton11);
+		miPanel.add(boton12);
+		miPanel.add(boton13);
+		miPanel.add(boton14);
+		miPanel.add(boton15);
+		miPanel.add(boton16);
 	}
 	
 	//este metodo se encarga de agregar actionlisteners a cada boton
