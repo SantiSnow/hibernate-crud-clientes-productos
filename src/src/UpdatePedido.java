@@ -41,16 +41,14 @@ public class UpdatePedido {
 				
 				break;
 			}
+			mySession.getTransaction().commit();
+			return miPedido;
 		}
 		else {
 			JOptionPane.showMessageDialog(null, "No se encontro un pedido con ese ID.");
-			
+			mySession.getTransaction().commit();
 			return miPedido;
 		}
-		
-		mySession.getTransaction().commit();
-		
-		return miPedido;
 	}
 
 }

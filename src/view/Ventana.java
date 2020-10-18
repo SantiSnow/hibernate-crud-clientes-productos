@@ -34,6 +34,7 @@ public class Ventana extends JFrame{
 	JButton boton13;
 	JButton boton14;
 	JButton boton15;
+	JButton boton16;
 	
 	JTextArea visor;
 	JScrollPane scroll;
@@ -73,74 +74,76 @@ public class Ventana extends JFrame{
 		miPanel.add(instruccion);
 
 	}
+	
 	//este metodo agrega botones y les da estilo en la ventana
 	private void agregarBotones() {
 		//botones
-				boton1 = new JButton("Buscar clientes por ID");
-				boton2 = new JButton("Buscar pedidos por ID");
-				boton13 = new JButton("Buscar producto por ID");
-				boton3 = new JButton("Eliminar clientes");
-				boton4 = new JButton("Eliminar pedidos");
-				boton14 = new JButton("Eliminar producto");
-				boton5 = new JButton("Actualizar un cliente");
-				boton6 = new JButton("Actualizar pedidos del cliente");
-				boton15 = new JButton("Actualizar producto");
-				boton7 = new JButton("Ver todos los clientes");
-				boton8 = new JButton("Ver todos los pedidos");
-				boton9 = new JButton("Crear cliente");
-				boton10 = new JButton("Crear pedido");
-				boton12 = new JButton("Crear producto");
-				boton11 = new JButton("Limpiar");
+		boton1 = new JButton("Buscar clientes por ID");
+		boton2 = new JButton("Buscar pedidos por ID");
+		boton13 = new JButton("Buscar producto por ID");
+		boton3 = new JButton("Eliminar clientes");
+		boton4 = new JButton("Eliminar pedidos");
+		boton14 = new JButton("Eliminar producto");
+		boton5 = new JButton("Actualizar un cliente");
+		boton6 = new JButton("Actualizar pedidos del cliente");
+		boton15 = new JButton("Actualizar producto");
+		boton7 = new JButton("Ver todos los clientes");
+		boton8 = new JButton("Ver todos los pedidos");
+		boton9 = new JButton("Crear cliente");
+		boton10 = new JButton("Crear pedido");
+		boton12 = new JButton("Crear producto");
+		boton11 = new JButton("Limpiar");
 				
-				boton1.setBounds(35, 150, 200, 30);
-				boton2.setBounds(35, 200, 200, 30);
-				boton13.setBounds(35, 250, 200, 30);
-				boton3.setBounds(35, 300, 200, 30);
-				boton4.setBounds(35, 350, 200, 30);
-				boton14.setBounds(35, 400, 200, 30);
-				boton5.setBounds(35, 450, 200, 30);
-				boton6.setBounds(35, 500, 200, 30);
-				boton7.setBounds(35, 550, 200, 30);
-				boton8.setBounds(35, 600, 200, 30);
-				boton9.setBounds(35, 650, 200, 30);
-				boton10.setBounds(35, 700, 200, 30);
-				boton12.setBounds(35, 750, 200, 30);
+		boton1.setBounds(35, 150, 200, 30);
+		boton2.setBounds(35, 200, 200, 30);
+		boton13.setBounds(35, 250, 200, 30);
+		boton3.setBounds(35, 300, 200, 30);
+		boton4.setBounds(35, 350, 200, 30);
+		boton14.setBounds(35, 400, 200, 30);
+		boton5.setBounds(35, 450, 200, 30);
+		boton6.setBounds(35, 500, 200, 30);
+		boton15.setBounds(35, 550, 200, 30);
+		boton7.setBounds(35, 600, 200, 30);
+		boton8.setBounds(35, 650, 200, 30);
+		boton9.setBounds(35, 700, 200, 30);
+		boton10.setBounds(35, 750, 200, 30);
+		boton12.setBounds(35, 800, 200, 30);
 				
-				//bajo el visor
-				boton11.setBounds(300, 720, 200, 30);
+		//bajo el visor
+		boton11.setBounds(300, 720, 200, 30);
 				
-				boton1.setBackground(new Color(0, 153, 204));
-				boton2.setBackground(new Color(0, 153, 204));
-				boton13.setBackground(new Color(0, 153, 204));
-				boton3.setBackground(new Color(255, 0, 0));
-				boton4.setBackground(new Color(255, 0, 0));
-				boton14.setBackground(new Color(255, 0, 0));
-				boton5.setBackground(new Color(0, 153, 0));
-				boton6.setBackground(new Color(0, 153, 0));
-				boton15.setBackground(new Color(0, 153, 0));
-				boton7.setBackground(new Color(0, 153, 204));
-				boton8.setBackground(new Color(0, 153, 204));
-				boton9.setBackground(new Color(0, 153, 204));
-				boton10.setBackground(new Color(0, 153, 204));
-				boton11.setBackground(new Color(255, 0, 0));
-				boton12.setBackground(new Color(0, 153, 204));
+		boton1.setBackground(new Color(0, 153, 204));
+		boton2.setBackground(new Color(0, 153, 204));
+		boton13.setBackground(new Color(0, 153, 204));
+		boton3.setBackground(new Color(255, 0, 0));
+		boton4.setBackground(new Color(255, 0, 0));
+		boton14.setBackground(new Color(255, 0, 0));
+		boton5.setBackground(new Color(0, 153, 0));
+		boton6.setBackground(new Color(0, 153, 0));
+		boton15.setBackground(new Color(0, 153, 0));
+		boton7.setBackground(new Color(0, 153, 204));
+		boton8.setBackground(new Color(0, 153, 204));
+		boton9.setBackground(new Color(0, 153, 204));
+		boton10.setBackground(new Color(0, 153, 204));
+		boton11.setBackground(new Color(255, 0, 0));
+		boton12.setBackground(new Color(0, 153, 204));
 				
 				
-				boton1.setForeground(Color.WHITE);
-				boton2.setForeground(Color.WHITE);
-				boton3.setForeground(Color.WHITE);
-				boton4.setForeground(Color.WHITE);
-				boton5.setForeground(Color.WHITE);
-				boton6.setForeground(Color.WHITE);
-				boton7.setForeground(Color.WHITE);
-				boton8.setForeground(Color.WHITE);
-				boton9.setForeground(Color.WHITE);
-				boton10.setForeground(Color.WHITE);
-				boton11.setForeground(Color.WHITE);
-				boton12.setForeground(Color.WHITE);
-				boton13.setForeground(Color.WHITE);
-				boton14.setForeground(Color.WHITE);
-				boton15.setForeground(Color.WHITE);
+		boton1.setForeground(Color.WHITE);
+		boton2.setForeground(Color.WHITE);
+		boton3.setForeground(Color.WHITE);
+		boton4.setForeground(Color.WHITE);
+		boton5.setForeground(Color.WHITE);
+		boton6.setForeground(Color.WHITE);
+		boton7.setForeground(Color.WHITE);
+		boton8.setForeground(Color.WHITE);
+		boton9.setForeground(Color.WHITE);
+		boton10.setForeground(Color.WHITE);
+		boton11.setForeground(Color.WHITE);
+		boton12.setForeground(Color.WHITE);
+		boton13.setForeground(Color.WHITE);
+		boton14.setForeground(Color.WHITE);
+		boton15.setForeground(Color.WHITE);
 				
 				miPanel.add(boton1);
 				miPanel.add(boton2);
@@ -324,6 +327,27 @@ public class Ventana extends JFrame{
 			}
 		};
 		
+		//actualizarProducto
+		ActionListener actualizarProducto = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Integer idPedido = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese ID del producto a actualizar"));
+				
+				Producto productoActualizado = UpdateProducto.updateProductos(sF, mySession, idPedido);
+				
+				visor.append("\nID del producto: " + productoActualizado.getId());
+				visor.append("\nNombre del producto: " + productoActualizado.getNombre());
+				visor.append("\nPrecio del producto:  " + productoActualizado.getPrecio());
+				visor.append("\nStock del producto:  " + productoActualizado.getStock());
+				visor.append("\nSeccion del producto:  " + productoActualizado.getSeccion());
+				visor.append("\nDetalle del producto:  "  + productoActualizado.getDetalle());
+				visor.append("\n ");
+				visor.append("\n ");
+				
+			}
+		};
+		
 		//ver todos los clientes
 		ActionListener verClientes = new ActionListener() {
 			
@@ -437,18 +461,19 @@ public class Ventana extends JFrame{
 				try {
 					Producto miProducto = InsertProducto.insertarPrducto(sF, mySession, nombre, precio, stock, detalle, seccion);
 					if(miProducto != null) {
+						visor.append("\n ");
 						visor.append(miProducto.getNombre() + " Insertado correctamente.");
+						visor.append("\nStock ingresado: " + stock);
+						visor.append("\nPrecio ingresado: "+ precio);
+						visor.append("\nDetalle ingresado: "+ detalle);
+						visor.append("\nSección ingresadas: "+ seccion);
+						visor.append("\n ");
+						visor.append("\n ");
 					}
 				} catch (Exception exception) {
 					System.out.println(exception);
 				}
-				visor.append("\nNombre ingresado: " + nombre);
-				visor.append("\nStock ingresado: " + stock);
-				visor.append("\nPrecio ingresado: "+ precio);
-				visor.append("\nDetalle ingresado: "+ detalle);
-				visor.append("\nSección ingresadas: "+ seccion);
-				visor.append("\n ");
-				visor.append("\n ");
+				
 			}
 		};
 		
@@ -475,8 +500,8 @@ public class Ventana extends JFrame{
 		boton11.addActionListener(limpiar);
 		boton12.addActionListener(crearProducto);
 		boton13.addActionListener(buscarProducto);
-		
 		boton14.addActionListener(eliminarProducto);
+		boton15.addActionListener(actualizarProducto);
 		
 	}
 
