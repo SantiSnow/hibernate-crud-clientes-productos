@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -35,6 +36,9 @@ public class Ventana extends JFrame{
 	JButton boton14;
 	JButton boton15;
 	JButton boton16;
+	JButton boton17;
+	JButton boton18;
+	JButton boton19;
 	
 	JTextArea visor;
 	JScrollPane scroll;
@@ -79,7 +83,7 @@ public class Ventana extends JFrame{
 	private void agregarBotones() {
 		//botones
 		boton1 = new JButton("Buscar clientes por ID");
-		boton2 = new JButton("Buscar pedidos por ID");
+		boton2 = new JButton("Buscar pedidos por Cliente");
 		boton13 = new JButton("Buscar producto por ID");
 		boton3 = new JButton("Eliminar clientes");
 		boton4 = new JButton("Eliminar pedidos");
@@ -95,6 +99,10 @@ public class Ventana extends JFrame{
 		boton10 = new JButton("Crear pedido");
 		boton12 = new JButton("Crear producto");
 		boton11 = new JButton("Limpiar");
+		
+		boton17 = new JButton("Buscar cliente por nombre");
+		boton18 = new JButton("Buscar producto por nombre");
+		boton19 = new JButton("Ver productos de la seccion");
 				
 		//botones a la izq
 		
@@ -111,14 +119,20 @@ public class Ventana extends JFrame{
 		//botones a la derecha
 		boton7.setBounds(1150, 150, 200, 30);
 		boton8.setBounds(1150, 200, 200, 30);
-		boton13.setBounds(1150, 250, 200, 30);
-		boton16.setBounds(1150, 300, 200, 30);
-		boton1.setBounds(1150, 350, 200, 30);
-		boton2.setBounds(1150, 400, 200, 30);
+		boton16.setBounds(1150, 250, 200, 30);
+		
+		boton17.setBounds(1150, 300, 200, 30);
+		boton18.setBounds(1150, 350, 200, 30);
+		boton19.setBounds(1150, 400, 200, 30);
+		
+		boton13.setBounds(1150, 450, 200, 30);
+		boton1.setBounds(1150, 500, 200, 30);
+		boton2.setBounds(1150, 550, 200, 30);
 				
 		//bajo el visor
 		boton11.setBounds(300, 720, 200, 30);
 				
+		//estilos de los botones
 		boton1.setBackground(new Color(0, 153, 204));
 		boton2.setBackground(new Color(0, 153, 204));
 		boton13.setBackground(new Color(0, 153, 204));
@@ -135,6 +149,9 @@ public class Ventana extends JFrame{
 		boton10.setBackground(new Color(0, 153, 204));
 		boton11.setBackground(new Color(255, 0, 0));
 		boton12.setBackground(new Color(0, 153, 204));
+		boton17.setBackground(new Color(0, 153, 0));
+		boton18.setBackground(new Color(0, 153, 0));
+		boton19.setBackground(new Color(0, 153, 0));
 				
 				
 		boton1.setForeground(Color.WHITE);
@@ -153,6 +170,9 @@ public class Ventana extends JFrame{
 		boton14.setForeground(Color.WHITE);
 		boton15.setForeground(Color.WHITE);
 		boton16.setForeground(Color.WHITE);
+		boton17.setForeground(Color.WHITE);
+		boton18.setForeground(Color.WHITE);
+		boton19.setForeground(Color.WHITE);
 				
 		miPanel.add(boton1);
 		miPanel.add(boton2);
@@ -170,6 +190,9 @@ public class Ventana extends JFrame{
 		miPanel.add(boton14);
 		miPanel.add(boton15);
 		miPanel.add(boton16);
+		miPanel.add(boton17);
+		miPanel.add(boton18);
+		miPanel.add(boton19);
 	}
 	
 	//este metodo se encarga de agregar actionlisteners a cada boton
@@ -403,6 +426,29 @@ public class Ventana extends JFrame{
 			}
 		};
 		
+		//ver todos los productos
+		ActionListener verProductos = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				List <Producto> listaProductos = ConsultasGenerales.listaProductos(sF, mySession);
+				
+				for (Producto i: listaProductos){
+					visor.append("\nPedido:");
+					visor.append("\nID del producto: " + i.getId());
+					visor.append("\nNombre del producto: " + i.getNombre());
+					visor.append("\nSeccion del producto: " + i.getSeccion());
+					visor.append("\nPrecio del producto: " + i.getPrecio());
+					visor.append("\nStock del producto: " + i.getStock());
+					visor.append("\nDetalee del producto: " + i.getDetalle());
+					visor.append("\n ");
+					visor.append("\n ");
+				}
+				
+			}
+		};		
+		
 		//crear cliente
 		ActionListener crearCliente = new ActionListener() {
 			@Override
@@ -487,6 +533,91 @@ public class Ventana extends JFrame{
 			}
 		};
 		
+		//buscar cliente por nombre
+		ActionListener clienteNombre = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String nombreCliente = JOptionPane.showInputDialog(null, "Ingrese nombre del cliente a buscar: ");
+				ArrayList<Cliente> listaClientes = Consultas.buscarClienteNombre(sF, mySession, nombreCliente);
+				
+				if(listaClientes != null) {
+					for(Cliente i: listaClientes) {
+						visor.append("\nCliente:");
+						visor.append("\nNombre: " + i.getNombre() + " " + i.getApellido());
+						visor.append("\nDirección: " + i.getDireccion());
+						visor.append("\nCompras: " + i.getCompras());
+						visor.append("\nID del cliente: " + i.getId());
+						visor.append("\nTelefono: " + i.getTelefono());
+						visor.append("\nCorreo: " + i.getDetallesCliente().getCorreo());
+						visor.append("\nComentarios: " + i.getDetallesCliente().getComentarios());
+						visor.append("\n ");
+						visor.append("\n ");
+					}
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "No se encontraron clientes con ese nombre");
+				}
+			}
+		};
+		
+		//buscar producto por nombre
+		ActionListener productoNombre = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String nombreProducto = JOptionPane.showInputDialog(null, "Ingrese nombre del producto a buscar: ");
+				List<Producto> listaProductos = Consultas.buscarProductoNombre(sF, mySession, nombreProducto);
+				
+				if(listaProductos != null) {
+					for(Producto i: listaProductos) {
+						visor.append("\nPedido:");
+						visor.append("\nID del producto: " + i.getId());
+						visor.append("\nNombre del producto: " + i.getNombre());
+						visor.append("\nSeccion del producto: " + i.getSeccion());
+						visor.append("\nPrecio del producto: " + i.getPrecio());
+						visor.append("\nStock del producto: " + i.getStock());
+						visor.append("\nDetalee del producto: " + i.getDetalle());
+						visor.append("\n ");
+						visor.append("\n ");
+					}
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "No se encontraron productos con ese nombre");
+				}
+				
+			}
+		};
+		
+		//buscar producto por seccion
+		ActionListener seccionProductos = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String [] seccionesDisp = {"Informatica", "Libreria", "Textiles", "Deportes", "Muebles"};
+				String seccion = (String) JOptionPane.showInputDialog(null,"Elija la sección: ", "Elegir",JOptionPane.QUESTION_MESSAGE,null, seccionesDisp, seccionesDisp[1]);
+				List<Producto> listaProductos = Consultas.buscarProductoSeccion(sF, mySession, seccion);
+				
+				if(listaProductos != null) {
+					for(Producto i: listaProductos) {
+						visor.append("\nPedido:");
+						visor.append("\nID del producto: " + i.getId());
+						visor.append("\nNombre del producto: " + i.getNombre());
+						visor.append("\nSeccion del producto: " + i.getSeccion());
+						visor.append("\nPrecio del producto: " + i.getPrecio());
+						visor.append("\nStock del producto: " + i.getStock());
+						visor.append("\nDetalee del producto: " + i.getDetalle());
+						visor.append("\n ");
+						visor.append("\n ");
+					}
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "No se encontraron productos en esa sección.");
+				}
+				
+			}
+		};		
+		
 		//limpia el visor
 		ActionListener limpiar = new ActionListener() {
 			@Override
@@ -495,6 +626,7 @@ public class Ventana extends JFrame{
 			}
 			
 		};
+		
 		
 		//cargar todos los action listener
 		boton1.addActionListener(buscarCliente);
@@ -512,6 +644,11 @@ public class Ventana extends JFrame{
 		boton13.addActionListener(buscarProducto);
 		boton14.addActionListener(eliminarProducto);
 		boton15.addActionListener(actualizarProducto);
+		boton16.addActionListener(verProductos);
+		
+		boton17.addActionListener(clienteNombre);
+		boton18.addActionListener(productoNombre);
+		boton19.addActionListener(seccionProductos);
 		
 	}
 

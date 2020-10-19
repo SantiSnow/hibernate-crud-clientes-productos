@@ -5,9 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import model.Cliente;
-import model.Pedido;
-
+import model.*;
 public class ConsultasGenerales {
 
 	public static List<Cliente> listaDeClientes(SessionFactory myFactory, Session mySession){
@@ -38,5 +36,17 @@ public class ConsultasGenerales {
 		return listaPedidos;
 	}
 	
+	public static List<Producto> listaProductos(SessionFactory myFactory, Session mySession){
+		mySession.beginTransaction();
+		
+		List<Producto> listaProductos;
+		
+		listaProductos = mySession.createQuery("from Producto").getResultList();
+		
+		//commit
+		mySession.getTransaction().commit();
+		
+		return listaProductos;
+	}
 	
 }

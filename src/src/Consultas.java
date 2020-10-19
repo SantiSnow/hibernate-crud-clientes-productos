@@ -1,15 +1,13 @@
 package src;
 
+import java.util.*;
+
 import javax.swing.JOptionPane;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.id.IdentifierGenerationException;
-import org.hibernate.service.spi.ServiceException;
 
-import model.Cliente;
-import model.DetallesCliente;
+import model.*;
 
 public class Consultas {
 	
@@ -37,7 +35,59 @@ public class Consultas {
 			
 		}
 		
+	}
+	
+	public static ArrayList<Cliente> buscarClienteNombre(SessionFactory myFactory, Session mySession, String nombreCliente) {
 		
+		mySession.beginTransaction();
+		
+		ArrayList<Cliente> listaClientes = (ArrayList<Cliente>) mySession.createQuery("from Cliente cl where cl.Nombre='" + nombreCliente + "'").getResultList();
+		
+		//commit
+		mySession.getTransaction().commit();
+		
+		if(listaClientes.size() > 0) {
+			return listaClientes;
+		}
+		else {
+			return null;
+		}
+		
+	}
+	
+	public static ArrayList<Producto> buscarProductoNombre(SessionFactory myFactory, Session mySession, String nombreProducto) {
+		
+		mySession.beginTransaction();
+		
+		ArrayList<Producto> listaProductos = (ArrayList<Producto>) mySession.createQuery("from Producto where Nombre='" + nombreProducto + "'").getResultList();
+		
+		//commit
+		mySession.getTransaction().commit();
+		
+		if(listaProductos.size() > 0) {
+			return listaProductos;
+		}
+		else {
+			return null;
+		}
+		
+	}
+	
+	public static ArrayList<Producto> buscarProductoSeccion(SessionFactory myFactory, Session mySession, String seccionProducto) {
+		
+		mySession.beginTransaction();
+		
+		ArrayList<Producto> listaProductos = (ArrayList<Producto>) mySession.createQuery("from Producto where Seccion='" + seccionProducto + "'").getResultList();
+		
+		//commit
+		mySession.getTransaction().commit();
+		
+		if(listaProductos.size() > 0) {
+			return listaProductos;
+		}
+		else {
+			return null;
+		}
 		
 	}
 

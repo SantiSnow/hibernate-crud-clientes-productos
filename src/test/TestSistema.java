@@ -45,9 +45,13 @@ public class TestSistema {
 		
 		Session mySession = myFactory.openSession();
 		
-		myFactory.close();
+		Assert.assertTrue(mySession != null);
 		
 		mySession.close();
+		
+		myFactory.close();
+		
+		
 		
 	}
 	
