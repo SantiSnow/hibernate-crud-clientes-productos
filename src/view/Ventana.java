@@ -42,6 +42,8 @@ public class Ventana extends JFrame{
 	JButton boton20;
 	JButton boton21;
 	
+	JButton boton22;
+	
 	JTextArea visor;
 	JScrollPane scroll;
 	
@@ -73,6 +75,13 @@ public class Ventana extends JFrame{
 		titulo.setBounds(15, 15, 600, 30);
 		titulo.setFont(new Font("arial", Font.BOLD, 30));
 		miPanel.add(titulo);
+		
+		//subtitulos
+		JLabel eliminar = new JLabel();
+		eliminar.setText("Vacias tablas completas");
+		eliminar.setBounds(1150, 670, 200, 30);
+		eliminar.setFont(new Font("arial", Font.BOLD, 15));
+		miPanel.add(eliminar);
 		
 		JLabel instruccion = new JLabel();
 		instruccion.setText("Aquí aparecerán los resultados de sus consultas:");
@@ -110,6 +119,8 @@ public class Ventana extends JFrame{
 		boton20 = new JButton("Realizar respaldo de pedidos");
 		boton21 = new JButton("Ver tabla historica de pedidos");
 		
+		boton22 = new JButton("Eliminar tablas completas");
+		
 		//botones a la izq
 		boton3.setBounds(35, 150, 200, 30);
 		boton4.setBounds(35, 200, 200, 30);
@@ -138,7 +149,10 @@ public class Ventana extends JFrame{
 		boton11.setBounds(300, 720, 220, 30);
 		boton20.setBounds(550, 720, 220, 30);
 		boton21.setBounds(800, 720, 220, 30);
-				
+		
+		//botones de eliminacion completa
+		boton22.setBounds(1150, 700, 200, 30);
+		
 		//estilos de los botones
 		boton1.setBackground(new Color(0, 153, 204));
 		boton2.setBackground(new Color(0, 153, 204));
@@ -162,6 +176,9 @@ public class Ventana extends JFrame{
 		boton20.setBackground(new Color(0, 153, 0));
 		boton21.setBackground(new Color(0, 153, 0));
 		
+		boton22.setBackground(new Color(255, 0, 0));
+		
+		
 		boton1.setForeground(Color.WHITE);
 		boton2.setForeground(Color.WHITE);
 		boton3.setForeground(Color.WHITE);
@@ -183,6 +200,7 @@ public class Ventana extends JFrame{
 		boton19.setForeground(Color.WHITE);
 		boton20.setForeground(Color.WHITE);
 		boton21.setForeground(Color.WHITE);
+		boton22.setForeground(Color.WHITE);
 		
 		miPanel.add(boton1);
 		miPanel.add(boton2);
@@ -205,6 +223,7 @@ public class Ventana extends JFrame{
 		miPanel.add(boton19);
 		miPanel.add(boton20);
 		miPanel.add(boton21);
+		miPanel.add(boton22);
 	}
 	
 	
@@ -685,6 +704,16 @@ public class Ventana extends JFrame{
 			}
 		};
 		
+		//abrir ventana de eliminacion de tablas
+		ActionListener ventanaEliminaTablas = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaEliminaTablas ventanaEliminaTablas = new VentanaEliminaTablas(mySession);
+				
+			}
+		};
+		
 		//cargar todos los action listener
 		boton1.addActionListener(buscarCliente);
 		boton2.addActionListener(buscarPedido);
@@ -709,6 +738,8 @@ public class Ventana extends JFrame{
 		
 		boton20.addActionListener(respaldarPedidos);
 		boton21.addActionListener(verTablaHistoricaPedidos);
+		
+		boton22.addActionListener(ventanaEliminaTablas);
 		
 	}
 
