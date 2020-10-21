@@ -16,7 +16,7 @@ public class VentanaRegistrosHistoricos extends JFrame{
 	public VentanaRegistrosHistoricos(List<PedidoHuerfano> listaHistorica) {
 		setSize(800, 600);
 		setTitle("Tabla Historica");
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		agregarPanel();
 		agregarVisor();
