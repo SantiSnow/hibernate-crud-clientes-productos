@@ -218,18 +218,22 @@ public class Ventana extends JFrame{
 				
 				Cliente clienteEncontrado = Consultas.buscarCliente(sF, mySession, idCliente);
 				
-				visor.append("\nCliente hallado: ");
-				visor.append("\nID del cliente ingresado: " + idCliente);
-				visor.append("\nNombre  del cliente ingresado: " + clienteEncontrado.getNombre());
-				visor.append("\nApellido  del cliente ingresado: " + clienteEncontrado.getApellido());
-				visor.append("\nDirección del cliente ingresado: " + clienteEncontrado.getDireccion());
-				visor.append("\nCompras del cliente ingresado: " + clienteEncontrado.getCompras());
-				visor.append("\nTelefono  del cliente ingresado: " + clienteEncontrado.getTelefono());
-				visor.append("\nCorreo  del cliente ingresado: " + clienteEncontrado.getDetallesCliente().getCorreo());
-				visor.append("\nComentarios  del cliente ingresado: " + clienteEncontrado.getDetallesCliente().getComentarios());
-				visor.append("\n ");
-				visor.append("\n ");
-				
+				if(clienteEncontrado != null) {
+					visor.append("\nCliente hallado: ");
+					visor.append("\nID del cliente ingresado: " + idCliente);
+					visor.append("\nNombre  del cliente ingresado: " + clienteEncontrado.getNombre());
+					visor.append("\nApellido  del cliente ingresado: " + clienteEncontrado.getApellido());
+					visor.append("\nDirección del cliente ingresado: " + clienteEncontrado.getDireccion());
+					visor.append("\nCompras del cliente ingresado: " + clienteEncontrado.getCompras());
+					visor.append("\nTelefono  del cliente ingresado: " + clienteEncontrado.getTelefono());
+					visor.append("\nCorreo  del cliente ingresado: " + clienteEncontrado.getDetallesCliente().getCorreo());
+					visor.append("\nComentarios  del cliente ingresado: " + clienteEncontrado.getDetallesCliente().getComentarios());
+					visor.append("\n ");
+					visor.append("\n ");
+				}
+				else {
+					visor.append("No se encontró un cliente con el ID " + idCliente);
+				}
 			}
 		};
 		
@@ -326,8 +330,9 @@ public class Ventana extends JFrame{
 				Integer clienteIdUpdate = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese ID del cliente a actualizar"));
 				
 				Cliente cActualizado = Update.UpdateCliente(clienteIdUpdate, sF, mySession);
-				
-				visor.append("\nCliente actualizado: ");
+				visor.append("\n");
+				visor.append("\n");
+				visor.append("\nNuevos datos del cliente: ");
 				visor.append("\nID del cliente actualizado: " + cActualizado);
 				visor.append("\nNombre  del cliente actualizado: " + cActualizado.getNombre());
 				visor.append("\nApellido  del cliente actualizado: " + cActualizado.getApellido());
@@ -435,7 +440,7 @@ public class Ventana extends JFrame{
 				List <Producto> listaProductos = ConsultasGenerales.listaProductos(sF, mySession);
 				
 				for (Producto i: listaProductos){
-					visor.append("\nPedido:");
+					visor.append("\nProducto:");
 					visor.append("\nID del producto: " + i.getId());
 					visor.append("\nNombre del producto: " + i.getNombre());
 					visor.append("\nSeccion del producto: " + i.getSeccion());
@@ -517,6 +522,7 @@ public class Ventana extends JFrame{
 				try {
 					Producto miProducto = InsertProducto.insertarPrducto(sF, mySession, nombre, precio, stock, detalle, seccion);
 					if(miProducto != null) {
+						visor.append("\n ");
 						visor.append("\n ");
 						visor.append(miProducto.getNombre() + " Insertado correctamente.");
 						visor.append("\nStock ingresado: " + stock);
