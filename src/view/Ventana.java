@@ -135,9 +135,9 @@ public class Ventana extends JFrame{
 		boton2.setBounds(1150, 550, 200, 30);
 				
 		//bajo el visor
-		boton11.setBounds(300, 720, 200, 30);
-		boton20.setBounds(550, 720, 200, 30);
-		boton21.setBounds(700, 720, 200, 30);
+		boton11.setBounds(300, 720, 220, 30);
+		boton20.setBounds(550, 720, 220, 30);
+		boton21.setBounds(800, 720, 220, 30);
 				
 		//estilos de los botones
 		boton1.setBackground(new Color(0, 153, 204));
@@ -672,7 +672,18 @@ public class Ventana extends JFrame{
 			}
 		};
 		
-		
+		//ver respaldo de pedidos
+		ActionListener verTablaHistoricaPedidos = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				List<PedidoHuerfano> listaPedidosHistoricos = ConsultasGenerales.listaPedidosHuerfanos(mySession);
+				
+				VentanaRegistrosHistoricos nuevaVentana = new VentanaRegistrosHistoricos(listaPedidosHistoricos);
+				
+			}
+		};
 		
 		//cargar todos los action listener
 		boton1.addActionListener(buscarCliente);
@@ -697,6 +708,7 @@ public class Ventana extends JFrame{
 		boton19.addActionListener(seccionProductos);
 		
 		boton20.addActionListener(respaldarPedidos);
+		boton21.addActionListener(verTablaHistoricaPedidos);
 		
 	}
 

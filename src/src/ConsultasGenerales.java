@@ -2,7 +2,6 @@ package src;
 
 import java.util.List;
 
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -48,6 +47,15 @@ public class ConsultasGenerales {
 		mySession.getTransaction().commit();
 		
 		return listaProductos;
+	}
+	
+	public static List<PedidoHuerfano> listaPedidosHuerfanos(Session mySession){
+		
+		mySession.beginTransaction();
+		List<PedidoHuerfano> listaPedidosHuerfanos = mySession.createQuery("from PedidoHuerfano").getResultList();
+		mySession.getTransaction().commit();
+		return listaPedidosHuerfanos;
+		
 	}
 	
 }
