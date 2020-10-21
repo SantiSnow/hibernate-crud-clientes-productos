@@ -18,7 +18,7 @@ public class Pedido {
 	@Column(name="FormaPago")
 	private String FormaPago;
 	
-	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
+	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE} )
 	@JoinColumn(name = "CLIENTE_Id")
 	private Cliente cliente;
 

@@ -33,7 +33,7 @@ public class Cliente {
 	@JoinColumn(name="Id", nullable=false)
 	private DetallesCliente detallesCliente;
 	
-	@OneToMany(mappedBy = "cliente", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
+	@OneToMany(mappedBy = "cliente", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE} )
 	private List<Pedido> pedidos;
 	
 	//constructores

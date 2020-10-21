@@ -39,6 +39,8 @@ public class Ventana extends JFrame{
 	JButton boton17;
 	JButton boton18;
 	JButton boton19;
+	JButton boton20;
+	JButton boton21;
 	
 	JTextArea visor;
 	JScrollPane scroll;
@@ -52,6 +54,7 @@ public class Ventana extends JFrame{
 		iniciarComponentes();
 		agregarBotones();
 		agregarActions(sF, mySession);
+		agregarVisor();
 		
 		setVisible(true);
 		
@@ -104,8 +107,10 @@ public class Ventana extends JFrame{
 		boton18 = new JButton("Buscar producto por nombre");
 		boton19 = new JButton("Ver productos de la seccion");
 				
-		//botones a la izq
+		boton20 = new JButton("Realizar respaldo de pedidos");
+		boton21 = new JButton("Ver tabla historica de pedidos");
 		
+		//botones a la izq
 		boton3.setBounds(35, 150, 200, 30);
 		boton4.setBounds(35, 200, 200, 30);
 		boton14.setBounds(35, 250, 200, 30);
@@ -131,6 +136,8 @@ public class Ventana extends JFrame{
 				
 		//bajo el visor
 		boton11.setBounds(300, 720, 200, 30);
+		boton20.setBounds(550, 720, 200, 30);
+		boton21.setBounds(700, 720, 200, 30);
 				
 		//estilos de los botones
 		boton1.setBackground(new Color(0, 153, 204));
@@ -152,8 +159,9 @@ public class Ventana extends JFrame{
 		boton17.setBackground(new Color(0, 153, 0));
 		boton18.setBackground(new Color(0, 153, 0));
 		boton19.setBackground(new Color(0, 153, 0));
-				
-				
+		boton20.setBackground(new Color(0, 153, 0));
+		boton21.setBackground(new Color(0, 153, 0));
+		
 		boton1.setForeground(Color.WHITE);
 		boton2.setForeground(Color.WHITE);
 		boton3.setForeground(Color.WHITE);
@@ -173,7 +181,9 @@ public class Ventana extends JFrame{
 		boton17.setForeground(Color.WHITE);
 		boton18.setForeground(Color.WHITE);
 		boton19.setForeground(Color.WHITE);
-				
+		boton20.setForeground(Color.WHITE);
+		boton21.setForeground(Color.WHITE);
+		
 		miPanel.add(boton1);
 		miPanel.add(boton2);
 		miPanel.add(boton3);
@@ -193,11 +203,13 @@ public class Ventana extends JFrame{
 		miPanel.add(boton17);
 		miPanel.add(boton18);
 		miPanel.add(boton19);
+		miPanel.add(boton20);
+		miPanel.add(boton21);
 	}
 	
-	//este metodo se encarga de agregar actionlisteners a cada boton
-	private void agregarActions(SessionFactory sF, Session mySession){
-		
+	
+	//agrega el visor
+	public void agregarVisor() {
 		visor = new JTextArea(); 
 		visor.setBounds(300, 150, 800, 550);
 		visor.setBackground(Color.WHITE);
@@ -207,8 +219,10 @@ public class Ventana extends JFrame{
 		scroll.setBackground(Color.WHITE);
 		
 		miPanel.add(scroll);
-		
-		
+	}
+	
+	//este metodo se encarga de agregar actionlisteners a cada boton
+	private void agregarActions(SessionFactory sF, Session mySession){
 		
 		//buscar cliente
 		ActionListener buscarCliente = new ActionListener() {
@@ -283,9 +297,15 @@ public class Ventana extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Integer idCliente = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese ID del cliente a eliminar"));
+				JOptionPane.showMessageDialog(null, "Eliminar un cliente, borra sus pedidos para evitar problemas en el gestor.");
+				JOptionPane.showMessageDialog(null, "Antes de eliminar un cliente, realice un respaldo de los pedidos con el boton: Realizar respaldo de pedidos.");
 				try {
-					DeleteRegistro.deleteCliente(sF, mySession, idCliente);
-					visor.append("\nID del cliente ingresado:" + idCliente);
+					Cliente clienteEliminado = DeleteRegistro.deleteCliente(sF, mySession, idCliente);
+					
+					visor.append("\nID del cliente eliminado: " + idCliente);
+					visor.append("\nnombre del cliente eliminado: " + clienteEliminado.getNombre() + " " + clienteEliminado.getApellido());
+					visor.append("\nCorreo del cliente eliminado: " + clienteEliminado.getDetallesCliente().getCorreo());
+					visor.append("\nTeléfono del cliente eliminado: " + clienteEliminado.getTelefono());
 				}
 				catch (Exception exception) {
 					System.out.println(exception);
@@ -396,10 +416,10 @@ public class Ventana extends JFrame{
 				
 				for (Cliente i: listaClientes){
 					visor.append("\nCliente:");
+					visor.append("\nID del cliente: " + i.getId());
 					visor.append("\nNombre: " + i.getNombre() + " " + i.getApellido());
 					visor.append("\nDirección: " + i.getDireccion());
 					visor.append("\nCompras: " + i.getCompras());
-					visor.append("\nID del cliente: " + i.getId());
 					visor.append("\nTelefono: " + i.getTelefono());
 					visor.append("\nCorreo: " + i.getDetallesCliente().getCorreo());
 					visor.append("\nComentarios: " + i.getDetallesCliente().getComentarios());
@@ -633,6 +653,26 @@ public class Ventana extends JFrame{
 			
 		};
 		
+		//respaldo de pedidos
+		ActionListener respaldarPedidos = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Esto realiza un respaldo de los pedidos, en una tabla historica.");
+				JOptionPane.showMessageDialog(null, "Esta tabla no guarda de que cliente es cada pedido. Usela solo si necesita borrar clientes");
+				Integer eleccion = JOptionPane.showConfirmDialog(null, "¿Desea respaldar los registros de pedidos?", "Respaldar pedidos", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				if(eleccion == 0) {
+					List<Pedido> listaPedidosClientes = ConsultasGenerales.listaDePedidos(sF, mySession);
+					InsertarPedidosHuerfanos.insertarPedidosSinCliente(listaPedidosClientes, mySession);
+					JOptionPane.showMessageDialog(null, "Respaldo en la tabla historica creado.");
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Respaldo cancelado.");
+				}
+			}
+		};
+		
+		
 		
 		//cargar todos los action listener
 		boton1.addActionListener(buscarCliente);
@@ -655,6 +695,8 @@ public class Ventana extends JFrame{
 		boton17.addActionListener(clienteNombre);
 		boton18.addActionListener(productoNombre);
 		boton19.addActionListener(seccionProductos);
+		
+		boton20.addActionListener(respaldarPedidos);
 		
 	}
 

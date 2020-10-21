@@ -15,6 +15,7 @@ public class Main {
 			.addAnnotatedClass(DetallesCliente.class)
 			.addAnnotatedClass(Pedido.class)
 			.addAnnotatedClass(Producto.class)
+			.addAnnotatedClass(PedidoHuerfano.class)
 			.buildSessionFactory();
 						
 		Session mySession = myFactory.openSession();
