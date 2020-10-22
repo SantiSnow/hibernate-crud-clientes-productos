@@ -1,8 +1,9 @@
 package test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.Calendar;
 
 import javax.swing.JOptionPane;
@@ -32,7 +33,29 @@ public class TestSistema {
 		JOptionPane.showMessageDialog(null, "El test del Sistema ha finalizado, compruebe los resultados");
 	}
 	
-	//test de prueba de conexion
+	@Test
+	public void testPruebaConexionEstandar() {
+		//datos conexion mysql
+		String host = "jdbc:mysql://localhost:3306/hibernate?serverTimezone=UTC&useSSL=false";
+		String usr = "root";
+		String pass = "";
+			
+		try {
+				
+			System.out.println("Intentando conectar");
+			
+			Connection miConexion = DriverManager.getConnection(host, usr, pass);
+			
+			Assert.assertTrue(miConexion != null);
+			
+			System.out.println("Conexion exitosa");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//test de prueba de conexion con hibernate
 	@Test
 	public void testParaProbarLaConexion() {
 		

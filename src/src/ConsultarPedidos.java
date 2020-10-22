@@ -1,16 +1,11 @@
 package src;
 
 import java.util.*;
-import javax.swing.JOptionPane;
 
 import org.hibernate.*;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.id.IdentifierGenerationException;
-import org.hibernate.service.spi.ServiceException;
 
 import model.Cliente;
 import model.Pedido;
-import view.Demo2;
 
 
 public class ConsultarPedidos {
