@@ -12,6 +12,8 @@ import java.sql.Statement;
 
 import javax.swing.*;
 
+import org.hibernate.Session;
+
 import src.RespaldarBaseDeDatos;
 
 public class VentanaRespaldo extends JFrame{
@@ -23,7 +25,7 @@ public class VentanaRespaldo extends JFrame{
 	JButton respaldarClientes;
 	JButton respaldarPedidos;
 	
-	public VentanaRespaldo() {
+	public VentanaRespaldo(Session mySession) {
 		setSize(600, 400);
 		setTitle("Respaldar tablas");
 		//setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -31,7 +33,7 @@ public class VentanaRespaldo extends JFrame{
 		agregaPanel();
 		agregarTitulo();
 		agregarBotones();
-		addActions();
+		addActions(mySession);
 		
 		setVisible(true);
 	}
@@ -73,14 +75,15 @@ public class VentanaRespaldo extends JFrame{
 		miPanel.add(respaldarPedidos);
 	}
 	
-	public void addActions() {
+	public void addActions(Session mySession) {
 		//respaldo de productos
 		ActionListener respaldarProd = new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					RespaldarBaseDeDatos.respaldarProd();
+					RespaldarBaseDeDatos.respaldarProd(mySession);
+					JOptionPane.showInternalMessageDialog(null, "Respaldo de productos creado en: " + "\nC:\\users\\Santiago\\respaldo-productos.csv");
 				}
 				catch(Exception exc){
 					JOptionPane.showInternalMessageDialog(null, "Error al respaldar la base de datos");
@@ -95,7 +98,8 @@ public class VentanaRespaldo extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {	
 				try {
-		            RespaldarBaseDeDatos.respaldarCli();
+		            RespaldarBaseDeDatos.respaldarCli(mySession);
+		            JOptionPane.showInternalMessageDialog(null, "Respaldo de clientes creado en: " + "\nC:\\users\\Santiago\\respaldo-clientes.csv");
 				}
 				catch(Exception exc){
 					JOptionPane.showInternalMessageDialog(null, "Error al respaldar la base de datos");
@@ -110,7 +114,8 @@ public class VentanaRespaldo extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					RespaldarBaseDeDatos.respaldarPed();
+					RespaldarBaseDeDatos.respaldarPed(mySession);
+			        JOptionPane.showInternalMessageDialog(null, "Respaldo de pedidos creado en: " + "\nC:\\users\\Santiago\\respaldo-pedidos.csv");
 				}
 				catch(Exception exc){
 					JOptionPane.showInternalMessageDialog(null, "Error al respaldar la base de datos");

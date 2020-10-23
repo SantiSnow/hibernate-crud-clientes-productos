@@ -5,98 +5,100 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import org.hibernate.Session;
+
+import model.*;
+
 public class RespaldarBaseDeDatos {
 	
-	public static void respaldarProd() throws Exception{
+	public static void respaldarProd(Session mySession) throws Exception{
 		String filename = "C:\\users\\Santiago\\respaldo-productos.csv";
 	    FileWriter fw = new FileWriter(filename);
-	    Class.forName("com.mysql.jdbc.Driver");
-	    Connection miConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/hibernate?serverTimezone=UTC&useSSL=false", "root", "");
-	    Statement miStatement = miConexion.createStatement();
-	    String sentenciaSql = "SELECT * FROM producto";
-	    ResultSet rs = miStatement.executeQuery(sentenciaSql);
-	
-	            while (rs.next()) {
-	                fw.append(rs.getString(1));
-	                fw.append(',');
-	                fw.append(rs.getString(2));
-	                fw.append(',');
-	                fw.append(rs.getString(3));
-	                fw.append(',');
-	                fw.append(rs.getString(4));
-	                fw.append(',');
-	                fw.append(rs.getString(5));
-	                fw.append(',');
-	                fw.append(rs.getString(6));
-	                fw.append('\n');
-	            }
-	            fw.flush();
-	            fw.close();
-	            miConexion.close();
-	            JOptionPane.showInternalMessageDialog(null, "Respaldo de productos creado en: "
-	            		+ "\nC:\\users\\Santiago\\respaldo-productos.csv");
-			
-	}
-	
-	public static void respaldarCli() throws Exception{
-		String filename = "C:\\users\\Santiago\\respaldo-clientes.csv";
-            FileWriter fw = new FileWriter(filename);
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection miConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/hibernate?serverTimezone=UTC&useSSL=false", "root", "");
-            Statement miStatement = miConexion.createStatement();
-            String sentenciaSql = "SELECT * FROM cliente";
-            ResultSet rs = miStatement.executeQuery(sentenciaSql);
-
-            while (rs.next()) {
-                fw.append(rs.getString(1));
-                fw.append(',');
-                fw.append(rs.getString(2));
-                fw.append(',');
-                fw.append(rs.getString(3));
-                fw.append(',');
-                fw.append(rs.getString(4));
-                fw.append(',');
-                fw.append(rs.getString(5));
-                fw.append(',');
-                fw.append(rs.getString(6));
-                fw.append('\n');
-            }
-            fw.flush();
-            fw.close();
-            miConexion.close();
-            JOptionPane.showInternalMessageDialog(null, "Respaldo de clientes creado en: "
-            		+ "\nC:\\users\\Santiago\\respaldo-clientes.csv");
-			
-	}
-	
-	public static void respaldarPed() throws Exception{
-		String filename = "C:\\users\\Santiago\\respaldo-pedidos.csv";
-            FileWriter fw = new FileWriter(filename);
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection miConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/hibernate?serverTimezone=UTC&useSSL=false", "root", "");
-            Statement miStatement = miConexion.createStatement();
-            String sentenciaSql = "SELECT * FROM pedido";
-            ResultSet rs = miStatement.executeQuery(sentenciaSql);
-
-            while (rs.next()) {
-                fw.append(rs.getString(1));
-                fw.append(',');
-                fw.append(rs.getString(2));
-                fw.append(',');
-                fw.append(rs.getString(3));
-                fw.append(',');
-                fw.append(rs.getString(4));
-                fw.append('\n');
-            }
-            fw.flush();
-            fw.close();
-            miConexion.close();
-            JOptionPane.showInternalMessageDialog(null, "Respaldo de pedidos creado en: "
-            		+ "\nC:\\users\\Santiago\\respaldo-pedidos.csv");
+	    
+	    //creamos la transaccion sql
+	    mySession.beginTransaction();
+	    List<Producto> listaProductos;
+	    listaProductos = mySession.createQuery("from Producto").getResultList();
+		//commit
+		mySession.getTransaction().commit();
 		
+		for(Producto i: listaProductos) {
+			fw.append("\n" + i.getId());
+			fw.append(',');
+			fw.append(i.getNombre());
+			fw.append(',');
+			fw.append(i.getDetalle());
+			fw.append(',');
+			fw.append("" + i.getPrecio());
+			fw.append(',');
+			fw.append(i.getSeccion());
+			fw.append(',');
+			fw.append("" + i.getStock());
+			fw.append(',');
+		}
+		fw.flush();
+		fw.close();
 	}
-
+	
+	public static void respaldarCli(Session mySession) throws Exception{
+		String filename = "C:\\users\\Santiago\\respaldo-clientes.csv";
+		FileWriter fw = new FileWriter(filename);
+            
+    	//creamos la transaccion sql
+    		mySession.beginTransaction();
+    		List<Cliente> listaClientes;
+    		listaClientes = mySession.createQuery("from Cliente").getResultList();
+    		//commit
+    		mySession.getTransaction().commit();
+    		for(Cliente i: listaClientes) {
+    			fw.append("\n" + i.getId());
+    			fw.append(',');
+    			fw.append(i.getNombre());
+    			fw.append(',');
+    			fw.append(i.getApellido());
+    			fw.append(',');
+    			fw.append(i.getDireccion());
+    			fw.append(',');
+    			fw.append("" + i.getCompras());
+    			fw.append(',');
+    			fw.append("" + i.getTelefono());
+    			fw.append(',');
+    			fw.append(i.getDetallesCliente().getCorreo());
+    			fw.append(',');
+    			fw.append(i.getDetallesCliente().getComentarios());
+    			fw.append(',');
+    		}
+    		fw.flush();
+            fw.close();		
+	}
+	
+	public static void respaldarPed(Session mySession) throws Exception{
+		//creacion del archivo
+		String filename = "C:\\users\\Santiago\\respaldo-pedidos.csv";
+		FileWriter fw = new FileWriter(filename);
+		
+		//conexion a mysql
+		//creamos la transaccion sql
+		mySession.beginTransaction();
+		List<Pedido> listaPedidos;
+		listaPedidos = mySession.createQuery("from Pedido").getResultList();
+		//commit
+		mySession.getTransaction().commit();
+		for(Pedido i: listaPedidos) {
+			fw.append("\n" + i.getId());
+			fw.append(',');
+			fw.append(i.getFormaPago());
+			fw.append(',');
+			fw.append("" + i.getFecha());
+			fw.append(',');
+			fw.append("" + i.getCliente().getNombre() + " " + i.getCliente().getApellido());
+			fw.append(',');
+		}
+		fw.flush();
+        fw.close();
+	}
 }

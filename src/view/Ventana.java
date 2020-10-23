@@ -732,7 +732,7 @@ public class Ventana extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaRespaldo ventanaNueva = new VentanaRespaldo();
+				VentanaRespaldo ventanaNueva = new VentanaRespaldo(mySession);
 				
 			}
 		};
