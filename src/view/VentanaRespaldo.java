@@ -12,6 +12,8 @@ import java.sql.Statement;
 
 import javax.swing.*;
 
+import src.RespaldarBaseDeDatos;
+
 public class VentanaRespaldo extends JFrame{
 	
 	JPanel miPanel;
@@ -77,38 +79,13 @@ public class VentanaRespaldo extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String filename = "C:\\users\\Santiago\\respaldo-productos.csv";
 				try {
-		            FileWriter fw = new FileWriter(filename);
-		            Class.forName("com.mysql.jdbc.Driver");
-		            Connection miConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/hibernate?serverTimezone=UTC&useSSL=false", "root", "");
-		            Statement miStatement = miConexion.createStatement();
-		            String sentenciaSql = "SELECT * FROM producto";
-		            ResultSet rs = miStatement.executeQuery(sentenciaSql);
-	
-		            while (rs.next()) {
-		                fw.append(rs.getString(1));
-		                fw.append(',');
-		                fw.append(rs.getString(2));
-		                fw.append(',');
-		                fw.append(rs.getString(3));
-		                fw.append(',');
-		                fw.append(rs.getString(4));
-		                fw.append(',');
-		                fw.append(rs.getString(5));
-		                fw.append(',');
-		                fw.append(rs.getString(6));
-		                fw.append('\n');
-		            }
-		            fw.flush();
-		            fw.close();
-		            miConexion.close();
-		            JOptionPane.showInternalMessageDialog(null, "Respaldo de productos creado en: "
-		            		+ "\nC:\\users\\Santiago\\respaldo-productos.csv");
+					RespaldarBaseDeDatos.respaldarProd();
 				}
 				catch(Exception exc){
 					JOptionPane.showInternalMessageDialog(null, "Error al respaldar la base de datos");
 				}
+				
 			}
 		};
 		
@@ -116,35 +93,9 @@ public class VentanaRespaldo extends JFrame{
 		ActionListener respaldarClient = new ActionListener() {
 			
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				String filename = "C:\\users\\Santiago\\respaldo-clientes.csv";
+			public void actionPerformed(ActionEvent e) {	
 				try {
-		            FileWriter fw = new FileWriter(filename);
-		            Class.forName("com.mysql.jdbc.Driver");
-		            Connection miConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/hibernate?serverTimezone=UTC&useSSL=false", "root", "");
-		            Statement miStatement = miConexion.createStatement();
-		            String sentenciaSql = "SELECT * FROM cliente";
-		            ResultSet rs = miStatement.executeQuery(sentenciaSql);
-	
-		            while (rs.next()) {
-		                fw.append(rs.getString(1));
-		                fw.append(',');
-		                fw.append(rs.getString(2));
-		                fw.append(',');
-		                fw.append(rs.getString(3));
-		                fw.append(',');
-		                fw.append(rs.getString(4));
-		                fw.append(',');
-		                fw.append(rs.getString(5));
-		                fw.append(',');
-		                fw.append(rs.getString(6));
-		                fw.append('\n');
-		            }
-		            fw.flush();
-		            fw.close();
-		            miConexion.close();
-		            JOptionPane.showInternalMessageDialog(null, "Respaldo de clientes creado en: "
-		            		+ "\nC:\\users\\Santiago\\respaldo-clientes.csv");
+		            RespaldarBaseDeDatos.respaldarCli();
 				}
 				catch(Exception exc){
 					JOptionPane.showInternalMessageDialog(null, "Error al respaldar la base de datos");
@@ -158,30 +109,8 @@ public class VentanaRespaldo extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String filename = "C:\\users\\Santiago\\respaldo-pedidos.csv";
 				try {
-		            FileWriter fw = new FileWriter(filename);
-		            Class.forName("com.mysql.jdbc.Driver");
-		            Connection miConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/hibernate?serverTimezone=UTC&useSSL=false", "root", "");
-		            Statement miStatement = miConexion.createStatement();
-		            String sentenciaSql = "SELECT * FROM pedido";
-		            ResultSet rs = miStatement.executeQuery(sentenciaSql);
-	
-		            while (rs.next()) {
-		                fw.append(rs.getString(1));
-		                fw.append(',');
-		                fw.append(rs.getString(2));
-		                fw.append(',');
-		                fw.append(rs.getString(3));
-		                fw.append(',');
-		                fw.append(rs.getString(4));
-		                fw.append('\n');
-		            }
-		            fw.flush();
-		            fw.close();
-		            miConexion.close();
-		            JOptionPane.showInternalMessageDialog(null, "Respaldo de pedidos creado en: "
-		            		+ "\nC:\\users\\Santiago\\respaldo-pedidos.csv");
+					RespaldarBaseDeDatos.respaldarPed();
 				}
 				catch(Exception exc){
 					JOptionPane.showInternalMessageDialog(null, "Error al respaldar la base de datos");
