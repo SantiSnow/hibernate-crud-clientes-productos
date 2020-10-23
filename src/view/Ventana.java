@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -41,8 +42,8 @@ public class Ventana extends JFrame{
 	JButton boton19;
 	JButton boton20;
 	JButton boton21;
-	
 	JButton boton22;
+	JButton boton23;
 	
 	JTextArea visor;
 	JScrollPane scroll;
@@ -83,6 +84,13 @@ public class Ventana extends JFrame{
 		eliminar.setFont(new Font("arial", Font.BOLD, 15));
 		miPanel.add(eliminar);
 		
+		//subtitulos
+		JLabel respaldar = new JLabel();
+		respaldar.setText("Reespaldar tablas");
+		respaldar.setBounds(730, 650, 200, 30);
+		respaldar.setFont(new Font("arial", Font.BOLD, 15));
+		miPanel.add(respaldar);
+		
 		JLabel instruccion = new JLabel();
 		instruccion.setText("Aquí aparecerán los resultados de sus consultas:");
 		instruccion.setBounds(280, 100, 450, 30);
@@ -120,6 +128,7 @@ public class Ventana extends JFrame{
 		boton21 = new JButton("Ver tabla historica de pedidos");
 		
 		boton22 = new JButton("Eliminar tablas completas");
+		boton23 = new JButton("Respaldar tablas");
 		
 		//botones a la izq
 		boton3.setBounds(30, 150, 150, 30);
@@ -153,6 +162,9 @@ public class Ventana extends JFrame{
 		//botones de eliminacion completa
 		boton22.setBounds(30, 680, 200, 30);
 		
+		//boton respaldo
+		boton23.setBounds(730, 680, 200, 30);
+		
 		//estilos de los botones
 		boton1.setBackground(new Color(0, 153, 204));
 		boton2.setBackground(new Color(0, 153, 204));
@@ -177,7 +189,7 @@ public class Ventana extends JFrame{
 		boton21.setBackground(new Color(0, 153, 0));
 		
 		boton22.setBackground(new Color(255, 0, 0));
-		
+		boton23.setBackground(new Color(0, 153, 0));
 		
 		boton1.setForeground(Color.WHITE);
 		boton2.setForeground(Color.WHITE);
@@ -201,6 +213,7 @@ public class Ventana extends JFrame{
 		boton20.setForeground(Color.WHITE);
 		boton21.setForeground(Color.WHITE);
 		boton22.setForeground(Color.WHITE);
+		boton23.setForeground(Color.WHITE);
 		
 		miPanel.add(boton1);
 		miPanel.add(boton2);
@@ -224,8 +237,8 @@ public class Ventana extends JFrame{
 		miPanel.add(boton20);
 		miPanel.add(boton21);
 		miPanel.add(boton22);
+		miPanel.add(boton23);
 	}
-	
 	
 	//agrega el visor
 	public void agregarVisor() {
@@ -714,6 +727,16 @@ public class Ventana extends JFrame{
 			}
 		};
 		
+		//respaldar bases de datos
+		ActionListener respaldo = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaRespaldo ventanaNueva = new VentanaRespaldo();
+				
+			}
+		};
+		
 		//cargar todos los action listener
 		boton1.addActionListener(buscarCliente);
 		boton2.addActionListener(buscarPedido);
@@ -740,6 +763,8 @@ public class Ventana extends JFrame{
 		boton21.addActionListener(verTablaHistoricaPedidos);
 		
 		boton22.addActionListener(ventanaEliminaTablas);
+		
+		boton23.addActionListener(respaldo);
 		
 	}
 
