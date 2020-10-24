@@ -4,11 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 
 import javax.swing.*;
 
@@ -20,6 +15,7 @@ public class VentanaRespaldo extends JFrame{
 	
 	JPanel miPanel;
 	JLabel titulo;
+	JLabel leyenda;
 	
 	JButton respaldarProductos;
 	JButton respaldarClientes;
@@ -49,8 +45,14 @@ public class VentanaRespaldo extends JFrame{
 		titulo = new JLabel();
 		titulo.setText("Respaldar tablas completas:");
 		titulo.setBounds(15, 15, 600, 30);
-		titulo.setFont(new Font("arial", Font.BOLD, 25));
+		titulo.setFont(new Font("arial", Font.BOLD, 30));
 		miPanel.add(titulo);
+		
+		leyenda = new JLabel();
+		leyenda.setText("<html><body>Aquí puede realizar respaldo de su información.<br />Cada tabla se respalda en un archivo CSV, <br />Y se guarda en su escritorio.</html></body>");
+		leyenda.setBounds(15, 50, 600, 60);
+		titulo.setFont(new Font("arial", Font.PLAIN, 20));
+		miPanel.add(leyenda);
 	}
 	
 	public void agregarBotones() {
@@ -58,9 +60,9 @@ public class VentanaRespaldo extends JFrame{
 		respaldarClientes = new JButton("Respaldar clientes");
 		respaldarPedidos = new JButton("Respaldar pedidos");
 		
-		respaldarProductos.setBounds(50, 100, 200, 30);
-		respaldarClientes.setBounds(50, 150, 200, 30);
-		respaldarPedidos.setBounds(50, 200, 200, 30);
+		respaldarProductos.setBounds(150, 120, 200, 30);
+		respaldarClientes.setBounds(150, 170, 200, 30);
+		respaldarPedidos.setBounds(150, 220, 200, 30);
 		
 		respaldarProductos.setBackground(new Color(0, 153, 0));
 		respaldarClientes.setBackground(new Color(0, 153, 0));
