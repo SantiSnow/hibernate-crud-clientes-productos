@@ -86,7 +86,7 @@ public class Ventana extends JFrame{
 		
 		//subtitulos
 		JLabel respaldar = new JLabel();
-		respaldar.setText("Reespaldar tablas");
+		respaldar.setText("Respaldar tablas");
 		respaldar.setBounds(730, 650, 200, 30);
 		respaldar.setFont(new Font("arial", Font.BOLD, 15));
 		miPanel.add(respaldar);

@@ -22,7 +22,7 @@ public class VentanaRespaldo extends JFrame{
 	JButton respaldarPedidos;
 	
 	public VentanaRespaldo(Session mySession) {
-		setSize(600, 400);
+		setSize(500, 400);
 		setTitle("Respaldar tablas");
 		//setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);

@@ -15,8 +15,12 @@ import model.*;
 
 public class RespaldarBaseDeDatos {
 	
-	public static void respaldarProd(Session mySession) throws Exception{
-		String filename = "C:\\users\\Santiago\\respaldo-productos.csv";
+	public static String respaldarProd(Session mySession) throws Exception{
+		
+		String [] sistemaCarpetas = {"Documents", "Desktop", "Downloads"}; 
+		String carpeta = (String) JOptionPane.showInputDialog(null,"Ingrese la carpeta de destino: ", "Elegir",JOptionPane.QUESTION_MESSAGE,null, sistemaCarpetas, sistemaCarpetas[0]);
+		
+		String filename = "C:\\users\\Santiago\\" + carpeta + "\\respaldo-productos.csv";
 	    FileWriter fw = new FileWriter(filename);
 	    
 	    //creamos la transaccion sql
@@ -42,10 +46,14 @@ public class RespaldarBaseDeDatos {
 		}
 		fw.flush();
 		fw.close();
+		
+		return filename;
 	}
 	
 	public static void respaldarCli(Session mySession) throws Exception{
-		String filename = "C:\\users\\Santiago\\respaldo-clientes.csv";
+		String [] sistemaCarpetas = {"Documents", "Desktop", "Downloads"}; 
+		String carpeta = (String) JOptionPane.showInputDialog(null,"Ingrese la carpeta de destino: ", "Elegir",JOptionPane.QUESTION_MESSAGE,null, sistemaCarpetas, sistemaCarpetas[0]);
+		String filename = "C:\\users\\Santiago\\" + carpeta + "\\respaldo-clientes.csv";
 		FileWriter fw = new FileWriter(filename);
             
     	//creamos la transaccion sql
@@ -77,8 +85,10 @@ public class RespaldarBaseDeDatos {
 	}
 	
 	public static void respaldarPed(Session mySession) throws Exception{
+		String [] sistemaCarpetas = {"Documents", "Desktop", "Downloads"}; 
+		String carpeta = (String) JOptionPane.showInputDialog(null,"Ingrese la carpeta de destino: ", "Elegir",JOptionPane.QUESTION_MESSAGE,null, sistemaCarpetas, sistemaCarpetas[0]);
 		//creacion del archivo
-		String filename = "C:\\users\\Santiago\\respaldo-pedidos.csv";
+		String filename = "C:\\users\\Santiago\\" + carpeta + "\\respaldo-pedidos.csv";
 		FileWriter fw = new FileWriter(filename);
 		
 		//conexion a mysql
