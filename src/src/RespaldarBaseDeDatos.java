@@ -16,11 +16,9 @@ import model.*;
 public class RespaldarBaseDeDatos {
 	
 	public static String respaldarProd(Session mySession) throws Exception{
+		String folder = JOptionPane.showInputDialog(null, "Ingrese la carpeta de destino. Se recomienda copiar la dirección desde el explorador de windows.");
 		
-		String [] sistemaCarpetas = {"Documents", "Desktop", "Downloads"}; 
-		String carpeta = (String) JOptionPane.showInputDialog(null,"Ingrese la carpeta de destino: ", "Elegir",JOptionPane.QUESTION_MESSAGE,null, sistemaCarpetas, sistemaCarpetas[0]);
-		
-		String filename = "C:\\users\\Santiago\\" + carpeta + "\\respaldo-productos.csv";
+		String filename = folder + "\\respaldo-productos.csv";
 	    FileWriter fw = new FileWriter(filename);
 	    
 	    //creamos la transaccion sql
@@ -50,10 +48,9 @@ public class RespaldarBaseDeDatos {
 		return filename;
 	}
 	
-	public static void respaldarCli(Session mySession) throws Exception{
-		String [] sistemaCarpetas = {"Documents", "Desktop", "Downloads"}; 
-		String carpeta = (String) JOptionPane.showInputDialog(null,"Ingrese la carpeta de destino: ", "Elegir",JOptionPane.QUESTION_MESSAGE,null, sistemaCarpetas, sistemaCarpetas[0]);
-		String filename = "C:\\users\\Santiago\\" + carpeta + "\\respaldo-clientes.csv";
+	public static String respaldarCli(Session mySession) throws Exception{
+		String folder = JOptionPane.showInputDialog(null, "Ingrese la carpeta de destino. Se recomienda copiar la dirección desde el explorador de windows.");
+		String filename = folder + "\\respaldo-clientes.csv";
 		FileWriter fw = new FileWriter(filename);
             
     	//creamos la transaccion sql
@@ -81,14 +78,15 @@ public class RespaldarBaseDeDatos {
     			fw.append(',');
     		}
     		fw.flush();
-            fw.close();		
+            fw.close();
+            
+            return filename;
 	}
 	
-	public static void respaldarPed(Session mySession) throws Exception{
-		String [] sistemaCarpetas = {"Documents", "Desktop", "Downloads"}; 
-		String carpeta = (String) JOptionPane.showInputDialog(null,"Ingrese la carpeta de destino: ", "Elegir",JOptionPane.QUESTION_MESSAGE,null, sistemaCarpetas, sistemaCarpetas[0]);
+	public static String respaldarPed(Session mySession) throws Exception{
+		String folder = JOptionPane.showInputDialog(null, "Ingrese la carpeta de destino. Se recomienda copiar la dirección desde el explorador de windows.");
 		//creacion del archivo
-		String filename = "C:\\users\\Santiago\\" + carpeta + "\\respaldo-pedidos.csv";
+		String filename = folder + "\\respaldo-pedidos.csv";
 		FileWriter fw = new FileWriter(filename);
 		
 		//conexion a mysql
@@ -110,5 +108,7 @@ public class RespaldarBaseDeDatos {
 		}
 		fw.flush();
         fw.close();
+        
+        return filename;
 	}
 }

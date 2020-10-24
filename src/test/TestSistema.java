@@ -15,10 +15,10 @@ import org.hibernate.id.IdentifierGenerationException;
 import org.hibernate.service.spi.ServiceException;
 import org.junit.*;
 
-import model.Cliente;
-import model.DetallesCliente;
-import model.Pedido;
+import model.*;
 import src.Insert;
+import src.InsertProducto;
+import src.RespaldarBaseDeDatos;
 import src.UpdatePedido;
 
 
@@ -33,7 +33,7 @@ public class TestSistema {
 		JOptionPane.showMessageDialog(null, "El test del Sistema ha finalizado, compruebe los resultados");
 	}
 	
-	@Test
+	@Ignore
 	public void testPruebaConexionEstandar() {
 		//datos conexion mysql
 		String host = "jdbc:mysql://localhost:3306/hibernate?serverTimezone=UTC&useSSL=false";
@@ -56,7 +56,7 @@ public class TestSistema {
 	}
 	
 	//test de prueba de conexion con hibernate
-	@Test
+	@Ignore
 	public void testParaProbarLaConexion() {
 		
 		//creamos un session factory
@@ -79,7 +79,7 @@ public class TestSistema {
 	}
 	
 	//test que prueba si la insersion de clientes es correcta
-	@Test
+	@Ignore
 	public void testParaInsertarClientes() {
 		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
 				.addAnnotatedClass(Cliente.class)
@@ -107,7 +107,7 @@ public class TestSistema {
 	}
 	
 	//test que prueba si la insersion de pedidos de clientes es correcta
-	@Test
+	@Ignore
 	public void testParaInsertarPedidos() {
 		//creamos un session factory
 		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
@@ -287,7 +287,7 @@ public class TestSistema {
 	}
 	
 	//test que prueba si la actualizacion de pedidos de clientes es correcta
-	@Test
+	@Ignore
 	public void testParaActualizarPedidos() {
 		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
 				.addAnnotatedClass(Cliente.class)
@@ -309,9 +309,8 @@ public class TestSistema {
 		}
 	}
 	
-	
 	//test que prueba si la actualizacion de clientes es correcta
-	@Test
+	@Ignore
 	public void testParaActualizarClientes() {
 		//creamos un session factory
 				SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
@@ -398,4 +397,88 @@ public class TestSistema {
 					System.out.println("Fin del programa");
 				}
 	}
+
+	//test para probar la creacion de productos correcta a la bbdd
+	@Ignore
+	public void testCreacionProductos() {
+		//creamos un session factory
+		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Cliente.class)
+			.addAnnotatedClass(DetallesCliente.class)
+			.addAnnotatedClass(Pedido.class)
+			.buildSessionFactory();
+				
+		Session mySession = myFactory.openSession();
+		
+		try {
+			Producto miProducto = new Producto("Samsung J7 Pro", 35000, 1, "Samsung Galaxy J7 Pro 2017 3GB ram 16 gb Almacenamiento, lector de huella digital.", "Informatica");
+			Producto productoInsertado = InsertProducto.insertarPrducto(myFactory, mySession, "Samsung J7 Pro", 35000, 1, "Samsung Galaxy J7 Pro 2017 3GB ram 16 gb Almacenamiento, lector de huella digital.", "Informatica");
+			Assert.assertEquals(miProducto, productoInsertado);
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testParaProbarRespaldoProductos() {
+		//creamos un session factory
+		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Cliente.class)
+			.addAnnotatedClass(DetallesCliente.class)
+			.addAnnotatedClass(Pedido.class)
+			.buildSessionFactory();
+						
+		Session mySession = myFactory.openSession();
+		
+		try {
+			String rutaEspecificada = "C:\\users\\santiago\\respaldo-productos.csv";
+			String destinoArchivo = RespaldarBaseDeDatos.respaldarProd(mySession);
+			Assert.assertEquals(rutaEspecificada, destinoArchivo);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testParaProbarRespaldoClientes() {
+		//creamos un session factory
+		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Cliente.class)
+			.addAnnotatedClass(DetallesCliente.class)
+			.addAnnotatedClass(Pedido.class)
+			.buildSessionFactory();
+							
+		Session mySession = myFactory.openSession();
+		
+		try {
+			String rutaEspecificada = "C:\\users\\santiago\\respaldo-clientes.csv";
+			String destinoArchivo = RespaldarBaseDeDatos.respaldarCli(mySession);
+			Assert.assertEquals(rutaEspecificada, destinoArchivo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testParaProbarRespaldoPedidos() {
+		//creamos un session factory
+		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Cliente.class)
+			.addAnnotatedClass(DetallesCliente.class)
+			.addAnnotatedClass(Pedido.class)
+			.buildSessionFactory();
+						
+		Session mySession = myFactory.openSession();
+		
+		try {
+			String rutaEspecificada = "C:\\users\\santiago\\respaldo-pedidos.csv";
+			String destinoArchivo = RespaldarBaseDeDatos.respaldarPed(mySession);
+			Assert.assertEquals(rutaEspecificada, destinoArchivo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 }

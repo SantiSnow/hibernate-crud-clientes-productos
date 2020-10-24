@@ -50,7 +50,7 @@ public class Ventana extends JFrame{
 	
 	public Ventana(SessionFactory sF, Session mySession){
 		//x, y
-		setSize(980, 780);
+		setSize(980, 710);
 		setTitle("Gestor de bases de datos MySQL");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -80,20 +80,20 @@ public class Ventana extends JFrame{
 		//subtitulos
 		JLabel eliminar = new JLabel();
 		eliminar.setText("Vacias tablas completas");
-		eliminar.setBounds(30, 650, 200, 30);
+		eliminar.setBounds(30, 590, 200, 30);
 		eliminar.setFont(new Font("arial", Font.BOLD, 15));
 		miPanel.add(eliminar);
 		
 		//subtitulos
 		JLabel respaldar = new JLabel();
 		respaldar.setText("Respaldar tablas");
-		respaldar.setBounds(730, 650, 200, 30);
+		respaldar.setBounds(730, 590, 200, 30);
 		respaldar.setFont(new Font("arial", Font.BOLD, 15));
 		miPanel.add(respaldar);
 		
 		JLabel instruccion = new JLabel();
 		instruccion.setText("Aquí aparecerán los resultados de sus consultas:");
-		instruccion.setBounds(280, 100, 450, 30);
+		instruccion.setBounds(280, 70, 450, 30);
 		instruccion.setFont(new Font("arial", Font.PLAIN, 15));
 		miPanel.add(instruccion);
 
@@ -131,39 +131,39 @@ public class Ventana extends JFrame{
 		boton23 = new JButton("Respaldar tablas");
 		
 		//botones a la izq
-		boton3.setBounds(30, 150, 150, 30);
-		boton4.setBounds(30, 200, 150, 30);
-		boton14.setBounds(30, 250, 150, 30);
-		boton5.setBounds(30, 300, 150, 30);
-		boton6.setBounds(30, 350, 150, 30);
-		boton15.setBounds(30, 400, 150, 30);
-		boton9.setBounds(30, 450, 150, 30);
-		boton10.setBounds(30, 500, 150, 30);
-		boton12.setBounds(30, 550, 150, 30);
+		boton3.setBounds(30, 100, 150, 30);
+		boton4.setBounds(30, 150, 150, 30);
+		boton14.setBounds(30, 200, 150, 30);
+		boton5.setBounds(30, 250, 150, 30);
+		boton6.setBounds(30, 300, 150, 30);
+		boton15.setBounds(30, 350, 150, 30);
+		boton9.setBounds(30, 400, 150, 30);
+		boton10.setBounds(30, 450, 150, 30);
+		boton12.setBounds(30, 500, 150, 30);
 		
 		//botones a la derecha
-		boton7.setBounds(730, 150, 200, 30);
-		boton8.setBounds(730, 200, 200, 30);
-		boton16.setBounds(730, 250, 200, 30);
+		boton7.setBounds(730, 100, 200, 30);
+		boton8.setBounds(730, 150, 200, 30);
+		boton16.setBounds(730, 200, 200, 30);
 		
-		boton17.setBounds(730, 300, 200, 30);
-		boton18.setBounds(730, 350, 200, 30);
-		boton19.setBounds(730, 400, 200, 30);
+		boton17.setBounds(730, 250, 200, 30);
+		boton18.setBounds(730, 300, 200, 30);
+		boton19.setBounds(730, 350, 200, 30);
 		
-		boton13.setBounds(730, 450, 200, 30);
-		boton1.setBounds(730, 500, 200, 30);
-		boton2.setBounds(730, 550, 200, 30);
+		boton13.setBounds(730, 400, 200, 30);
+		boton1.setBounds(730, 450, 200, 30);
+		boton2.setBounds(730, 500, 200, 30);
 				
 		//bajo el visor
-		boton11.setBounds(30, 600, 150, 30);
-		boton20.setBounds(200, 600, 220, 30);
-		boton21.setBounds(440, 600, 220, 30);
+		boton11.setBounds(30, 550, 150, 30);
+		boton20.setBounds(200, 550, 220, 30);
+		boton21.setBounds(440, 550, 220, 30);
 		
 		//botones de eliminacion completa
-		boton22.setBounds(30, 680, 200, 30);
+		boton22.setBounds(30, 620, 200, 30);
 		
 		//boton respaldo
-		boton23.setBounds(730, 680, 200, 30);
+		boton23.setBounds(730, 620, 200, 30);
 		
 		//estilos de los botones
 		boton1.setBackground(new Color(0, 153, 204));
@@ -243,11 +243,11 @@ public class Ventana extends JFrame{
 	//agrega el visor
 	public void agregarVisor() {
 		visor = new JTextArea(); 
-		visor.setBounds(200, 150, 500, 400);
+		visor.setBounds(200, 100, 500, 400);
 		visor.setBackground(Color.WHITE);
 		
 		scroll = new JScrollPane(visor);
-		scroll.setBounds(200, 150, 500, 400);
+		scroll.setBounds(200, 100, 500, 400);
 		scroll.setBackground(Color.WHITE);
 		
 		miPanel.add(scroll);

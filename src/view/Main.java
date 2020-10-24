@@ -40,8 +40,8 @@ public class Main {
 		}
 		catch(Exception e) {
 			String msj = e.getMessage();
-			JOptionPane.showMessageDialog(null, msj);
-			System.out.println(msj);
+			JOptionPane.showMessageDialog(null, msj + "\nLa base de datos parece desconectada. Inicie su gestor XAMPP y pruebe de nuevo.");
+			//System.out.println(msj);
 		}
 		finally {
 			//System.out.println("Fin del programa");

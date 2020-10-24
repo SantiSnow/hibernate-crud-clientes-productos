@@ -89,6 +89,7 @@ public class VentanaRespaldo extends JFrame{
 				}
 				catch(Exception exc){
 					JOptionPane.showInternalMessageDialog(null, "Error al respaldar la base de datos");
+					exc.printStackTrace();
 				}
 				
 			}
