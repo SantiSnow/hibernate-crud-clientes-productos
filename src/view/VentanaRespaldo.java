@@ -16,13 +16,18 @@ public class VentanaRespaldo extends JFrame{
 	JPanel miPanel;
 	JLabel titulo;
 	JLabel leyenda;
+	JLabel leyenda2;
 	
 	JButton respaldarProductos;
 	JButton respaldarClientes;
 	JButton respaldarPedidos;
 	
+	JButton migrarProductos;
+	JButton migrarPedidos;
+	JButton migrarClientes;
+	
 	public VentanaRespaldo(Session mySession) {
-		setSize(500, 400);
+		setSize(700, 400);
 		setTitle("Respaldar tablas");
 		//setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -49,10 +54,16 @@ public class VentanaRespaldo extends JFrame{
 		miPanel.add(titulo);
 		
 		leyenda = new JLabel();
-		leyenda.setText("<html><body>Aquí puede realizar respaldo de su información.<br />Cada tabla se respalda en un archivo CSV, <br />Y se guarda en su escritorio.</html></body>");
+		leyenda.setText("<html><body>Aquí puede realizar respaldo de su información.<br />Cada tabla se respalda en un archivo CSV, <br />Y se guarda donde usted lo indique.</html></body>");
 		leyenda.setBounds(15, 50, 600, 60);
-		titulo.setFont(new Font("arial", Font.PLAIN, 20));
+		leyenda.setFont(new Font("arial", Font.PLAIN, 13));
 		miPanel.add(leyenda);
+		
+		leyenda2 = new JLabel();
+		leyenda2.setText("<html><body>Aquí puede migrar su información,<br />cada tabla se envia al gestor MongoDB.<br />Para ello es necesario contar con ese gestor instalado.</html></body>");
+		leyenda2.setBounds(320, 50, 600, 60);
+		leyenda2.setFont(new Font("arial", Font.PLAIN, 13));
+		miPanel.add(leyenda2);
 	}
 	
 	public void agregarBotones() {
@@ -60,9 +71,9 @@ public class VentanaRespaldo extends JFrame{
 		respaldarClientes = new JButton("Respaldar clientes");
 		respaldarPedidos = new JButton("Respaldar pedidos");
 		
-		respaldarProductos.setBounds(150, 120, 200, 30);
-		respaldarClientes.setBounds(150, 170, 200, 30);
-		respaldarPedidos.setBounds(150, 220, 200, 30);
+		respaldarProductos.setBounds(50, 120, 200, 30);
+		respaldarClientes.setBounds(50, 170, 200, 30);
+		respaldarPedidos.setBounds(50, 220, 200, 30);
 		
 		respaldarProductos.setBackground(new Color(0, 153, 0));
 		respaldarClientes.setBackground(new Color(0, 153, 0));
@@ -75,6 +86,26 @@ public class VentanaRespaldo extends JFrame{
 		miPanel.add(respaldarProductos);
 		miPanel.add(respaldarClientes);
 		miPanel.add(respaldarPedidos);
+		
+		migrarProductos = new JButton("Migrar Productos");
+		migrarPedidos = new JButton("Migrar Pedidos");
+		migrarClientes = new JButton("Migrar Clientes");
+		
+		migrarProductos.setBounds(360, 120, 200, 30);
+		migrarPedidos.setBounds(360, 170, 200, 30);
+		migrarClientes.setBounds(360, 220, 200, 30);
+		
+		migrarProductos.setBackground(new Color(0, 153, 0));
+		migrarPedidos.setBackground(new Color(0, 153, 0));
+		migrarClientes.setBackground(new Color(0, 153, 0));
+		
+		migrarProductos.setForeground(Color.WHITE);
+		migrarPedidos.setForeground(Color.WHITE);
+		migrarClientes.setForeground(Color.WHITE);
+		
+		miPanel.add(migrarProductos);
+		miPanel.add(migrarPedidos);
+		miPanel.add(migrarClientes);
 	}
 	
 	public void addActions(Session mySession) {
@@ -126,10 +157,50 @@ public class VentanaRespaldo extends JFrame{
 				
 			}
 		};
-	
+		
+		//migraciones
+		ActionListener migracionProductos = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					RespaldarBaseDeDatos.respaldoNoSQLProductos(mySession);
+					JOptionPane.showMessageDialog(null, "Migracion de productos a MongoDB Realizada con exito.");
+				} catch (Exception exc) {
+					exc.printStackTrace();
+				}	
+			}
+		};
+		
+		ActionListener migracionPedidos = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					RespaldarBaseDeDatos.respaldoNoSQLPedidos(mySession);
+					JOptionPane.showMessageDialog(null, "Migracion de pedidos a MongoDB Realizada con exito.");
+				} catch (Exception exc) {
+					exc.printStackTrace();
+				}
+			}
+		};
+		
+		ActionListener migracionClientes = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					RespaldarBaseDeDatos.respaldoNoSQLClientes(mySession);
+					JOptionPane.showMessageDialog(null, "Migracion de clientes a MongoDB Realizada con exito.");
+				} catch (Exception exc) {
+					exc.printStackTrace();
+				}
+			}
+		};
+			
 		respaldarProductos.addActionListener(respaldarProd);
 		respaldarClientes.addActionListener(respaldarClient);
 		respaldarPedidos.addActionListener(respaldarPed);
+		migrarProductos.addActionListener(migracionProductos);
+		migrarPedidos.addActionListener(migracionPedidos);
+		migrarClientes.addActionListener(migracionClientes);
 	}
 	
 
