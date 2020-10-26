@@ -1,15 +1,15 @@
 package src;
 
 import java.io.FileWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import org.bson.Document;
+
 import org.hibernate.Session;
+
+import com.mongodb.client.MongoDatabase;
 
 import model.*;
 
@@ -111,4 +111,75 @@ public class RespaldarBaseDeDatos {
         
         return filename;
 	}
+	
+	public static void respaldoNoSQLProductos(Session mySession)throws Exception{
+		mySession.beginTransaction();
+	    List<Producto> listaProductos;
+	    listaProductos = mySession.createQuery("from Producto").getResultList();
+		mySession.getTransaction().commit();
+		
+		ConexionMongo conexionMongo = new ConexionMongo();
+		MongoDatabase dataBase = conexionMongo.mongoCon("Respaldo_Gestor", "Productos");
+		
+		for(Producto i: listaProductos) {
+			Document documento = new Document("_id", i.getId())
+				.append("Nombre", i.getNombre())
+				.append("Precio", i.getPrecio())
+				.append("Detalle", i.getDetalle())
+				.append("Seccion", i.getSeccion())
+				.append("Stock", i.getStock());
+			
+			dataBase.getCollection("Productos").insertOne(documento);
+		}
+		//cerrar los pool de conexiones
+		conexionMongo.cerrarPool();
+	}
+	
+	public static void respaldoNoSQLPedidos(Session mySession)throws Exception{
+		mySession.beginTransaction();
+	    List<Pedido> listaPedidos;
+	    listaPedidos = mySession.createQuery("from Pedido").getResultList();
+		mySession.getTransaction().commit();
+		
+		ConexionMongo conexionMongo = new ConexionMongo();
+		MongoDatabase dataBase = conexionMongo.mongoCon("Respaldo_Gestor", "Pedidos");
+		
+		for(Pedido i: listaPedidos) {
+			Document documento = new Document("_id", i.getId())
+				.append("Forma Pago", i.getFormaPago())
+				.append("Fecha", i.getFecha())
+				.append("Nombre Cliente", i.getCliente().getNombre())
+				.append("Apellido Cliente", i.getCliente().getApellido());
+			
+			dataBase.getCollection("Pedidos").insertOne(documento);
+		}
+		//cerrar los pool de conexiones
+		conexionMongo.cerrarPool();
+	}
+	
+	public static void respaldoNoSQLClientes(Session mySession)throws Exception{
+		mySession.beginTransaction();
+	    List<Cliente> listaClientes;
+	    listaClientes = mySession.createQuery("from Cliente").getResultList();
+		mySession.getTransaction().commit();
+		
+		ConexionMongo conexionMongo = new ConexionMongo();
+		MongoDatabase dataBase = conexionMongo.mongoCon("Respaldo_Gestor", "Clientes");
+		
+		for(Cliente i: listaClientes) {
+			Document documento = new Document("_id", i.getId())
+				.append("Nombre", i.getNombre())
+				.append("Apellido", i.getApellido())
+				.append("Telefono", i.getTelefono())
+				.append("Direccion", i.getDireccion())
+				.append("Compras", i.getCompras())
+				.append("Correo", i.getDetallesCliente().getCorreo())
+				.append("Comentarios", i.getDetallesCliente().getComentarios());
+			
+			dataBase.getCollection("Clientes").insertOne(documento);
+		}
+		//cerrar los pool de conexiones
+		conexionMongo.cerrarPool();
+	}
+	
 }
