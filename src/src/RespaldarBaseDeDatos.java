@@ -1,6 +1,7 @@
 package src;
 
 import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -10,11 +11,12 @@ import org.bson.Document;
 import org.hibernate.Session;
 
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.InsertManyOptions;
 
 import model.*;
 
 public class RespaldarBaseDeDatos {
-	
+
 	public static String respaldarProd(Session mySession) throws Exception{
 		String folder = JOptionPane.showInputDialog(null, "Ingrese la carpeta de destino. Se recomienda copiar la dirección desde el explorador de windows.");
 		
@@ -180,6 +182,83 @@ public class RespaldarBaseDeDatos {
 		}
 		//cerrar los pool de conexiones
 		conexionMongo.cerrarPool();
+	}
+	
+	//Estos metodos son un poco mas eficientes que los 3 anteriores
+	public static void migracionListaClientes(Session mySession)throws Exception{
+		mySession.beginTransaction();
+	    List<Cliente> lista;
+	    lista = mySession.createQuery("from Cliente").getResultList();
+		mySession.getTransaction().commit();
+		
+		ConexionMongo conexionMongo = new ConexionMongo();
+		MongoDatabase dataBase = conexionMongo.mongoCon("Respaldo_Gestor", "Clientes");
+		
+		List<Document> listaDocumentos = new ArrayList<Document>();
+		
+		for(Cliente i: lista) {
+			Document documento = new Document("_id", i.getId())
+				.append("Nombre", i.getNombre())
+				.append("Apellido", i.getApellido())
+				.append("Telefono", i.getTelefono())
+				.append("Direccion", i.getDireccion())
+				.append("Compras", i.getCompras())
+				.append("Correo", i.getDetallesCliente().getCorreo())
+				.append("Comentarios", i.getDetallesCliente().getComentarios());
+			listaDocumentos.add(documento);
+		}
+		
+		dataBase.getCollection("Clientes").insertMany(listaDocumentos, new InsertManyOptions().ordered(false));
+	}
+	
+	public static void migracionListaProductos(Session mySession)throws Exception{
+		mySession.beginTransaction();
+	    List<Producto> lista;
+	    lista = mySession.createQuery("from Producto").getResultList();
+		mySession.getTransaction().commit();
+		
+		ConexionMongo conexionMongo = new ConexionMongo();
+		MongoDatabase dataBase = conexionMongo.mongoCon("Respaldo_Gestor", "Productos");
+		
+		List<Document> listaDocumentos = new ArrayList<Document>();
+		
+		for(Producto i: lista) {
+			Document documento = new Document("_id", i.getId())
+				.append("Nombre", i.getNombre())
+				.append("Nombre", i.getNombre())
+				.append("Precio", i.getPrecio())
+				.append("Detalle", i.getDetalle())
+				.append("Seccion", i.getSeccion())
+				.append("Stock", i.getStock());
+			listaDocumentos.add(documento);
+		}
+		
+		
+		dataBase.getCollection("Productos").insertMany(listaDocumentos, new InsertManyOptions().ordered(false));
+	}
+	
+	public static void migracionListaPedidos(Session mySession)throws Exception{
+		mySession.beginTransaction();
+	    List<Pedido> lista;
+	    lista = mySession.createQuery("from Pedido").getResultList();
+		mySession.getTransaction().commit();
+		
+		ConexionMongo conexionMongo = new ConexionMongo();
+		MongoDatabase dataBase = conexionMongo.mongoCon("Respaldo_Gestor", "Pedidos");
+		
+		List<Document> listaDocumentos = new ArrayList<Document>();
+		
+		for(Pedido i: lista) {
+			Document documento = new Document("_id", i.getId())
+				.append("Forma Pago", i.getFormaPago())
+				.append("Fecha", i.getFecha())
+				.append("Nombre Cliente", i.getCliente().getNombre())
+				.append("Apellido Cliente", i.getCliente().getApellido());
+			listaDocumentos.add(documento);
+		}
+		
+		
+		dataBase.getCollection("Pedidos").insertMany(listaDocumentos, new InsertManyOptions().ordered(false));
 	}
 	
 }

@@ -481,10 +481,8 @@ public class TestSistema {
 		}
 	}
 
-	
-	
 	//nuevos test con mongodb
-	@Test
+	@Ignore
 	public void migracionMongoDBProductos() {
 		//creamos un session factory
 		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
@@ -504,7 +502,7 @@ public class TestSistema {
 		}
 	}
 	
-	@Test
+	@Ignore
 	public void migracionMongoDBPedidos() {
 		//creamos un session factory
 		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
@@ -524,7 +522,7 @@ public class TestSistema {
 		}
 	}
 	
-	@Test
+	@Ignore
 	public void migracionMongoDBClientes() {
 		//creamos un session factory
 		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
@@ -538,6 +536,72 @@ public class TestSistema {
 		
 		try {
 			RespaldarBaseDeDatos.respaldoNoSQLClientes(mySession);
+			JOptionPane.showMessageDialog(null, "Migracion de clientes a MongoDB Realizada con exito.");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+
+
+
+
+	@Test
+	public void migracionTestClientes2() {
+		//creamos un session factory
+		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Cliente.class)
+			.addAnnotatedClass(DetallesCliente.class)
+			.addAnnotatedClass(Pedido.class)
+			.addAnnotatedClass(Producto.class)
+			.buildSessionFactory();
+										
+		Session mySession = myFactory.openSession();
+	
+		try {
+			RespaldarBaseDeDatos.migracionListaClientes(mySession);
+			JOptionPane.showMessageDialog(null, "Migracion de clientes a MongoDB Realizada con exito.");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@Test
+	public void migracionTestProductos2() {
+		//creamos un session factory
+		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Cliente.class)
+			.addAnnotatedClass(DetallesCliente.class)
+			.addAnnotatedClass(Pedido.class)
+			.addAnnotatedClass(Producto.class)
+			.buildSessionFactory();
+										
+		Session mySession = myFactory.openSession();
+	
+		try {
+			RespaldarBaseDeDatos.migracionListaProductos(mySession);
+			JOptionPane.showMessageDialog(null, "Migracion de clientes a MongoDB Realizada con exito.");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@Test
+	public void migracionTestPedidos2() {
+		//creamos un session factory
+		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Cliente.class)
+			.addAnnotatedClass(DetallesCliente.class)
+			.addAnnotatedClass(Pedido.class)
+			.addAnnotatedClass(Producto.class)
+			.buildSessionFactory();
+										
+		Session mySession = myFactory.openSession();
+	
+		try {
+			RespaldarBaseDeDatos.migracionListaPedidos(mySession);
 			JOptionPane.showMessageDialog(null, "Migracion de clientes a MongoDB Realizada con exito.");
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -9,6 +9,8 @@ import javax.swing.*;
 
 import org.hibernate.Session;
 
+import com.mongodb.MongoCommandException;
+
 import src.RespaldarBaseDeDatos;
 
 public class VentanaRespaldo extends JFrame{
@@ -163,8 +165,10 @@ public class VentanaRespaldo extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					RespaldarBaseDeDatos.respaldoNoSQLProductos(mySession);
+					RespaldarBaseDeDatos.migracionListaProductos(mySession);
 					JOptionPane.showMessageDialog(null, "Migracion de productos a MongoDB Realizada con exito.");
+				} catch (MongoCommandException exc) {
+					JOptionPane.showMessageDialog(null, "La tabla ya ha sido migrada a una colleccion de Mongo. Chequee su gestor MongoDBCompass");
 				} catch (Exception exc) {
 					exc.printStackTrace();
 				}	
@@ -175,8 +179,10 @@ public class VentanaRespaldo extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					RespaldarBaseDeDatos.respaldoNoSQLPedidos(mySession);
+					RespaldarBaseDeDatos.migracionListaPedidos(mySession);
 					JOptionPane.showMessageDialog(null, "Migracion de pedidos a MongoDB Realizada con exito.");
+				} catch (MongoCommandException exc) {
+					JOptionPane.showMessageDialog(null, "La tabla ya ha sido migrada a una colleccion de Mongo. Chequee su gestor MongoDBCompass");
 				} catch (Exception exc) {
 					exc.printStackTrace();
 				}
@@ -187,8 +193,10 @@ public class VentanaRespaldo extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					RespaldarBaseDeDatos.respaldoNoSQLClientes(mySession);
+					RespaldarBaseDeDatos.migracionListaClientes(mySession);
 					JOptionPane.showMessageDialog(null, "Migracion de clientes a MongoDB Realizada con exito.");
+				} catch (MongoCommandException exc) {
+					JOptionPane.showMessageDialog(null, "La tabla ya ha sido migrada a una colleccion de Mongo. Chequee su gestor MongoDBCompass");
 				} catch (Exception exc) {
 					exc.printStackTrace();
 				}
