@@ -168,9 +168,9 @@ public class VentanaRespaldo extends JFrame{
 					RespaldarBaseDeDatos.migracionListaProductos(mySession);
 					JOptionPane.showMessageDialog(null, "Migracion de productos a MongoDB Realizada con exito.");
 				} catch (MongoCommandException exc) {
-					JOptionPane.showMessageDialog(null, "La tabla ya ha sido migrada a una colleccion de Mongo. Chequee su gestor MongoDBCompass");
+					JOptionPane.showMessageDialog(null, "La tabla ya ha sido migrada a una colleccion de Mongo. Chequee su gestor MongoDBCompass.");
 				} catch (Exception exc) {
-					exc.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Error al intentar migrar la tabla, chequee si su gestor esta instalado y funcionando.");
 				}	
 			}
 		};
@@ -182,9 +182,9 @@ public class VentanaRespaldo extends JFrame{
 					RespaldarBaseDeDatos.migracionListaPedidos(mySession);
 					JOptionPane.showMessageDialog(null, "Migracion de pedidos a MongoDB Realizada con exito.");
 				} catch (MongoCommandException exc) {
-					JOptionPane.showMessageDialog(null, "La tabla ya ha sido migrada a una colleccion de Mongo. Chequee su gestor MongoDBCompass");
+					JOptionPane.showMessageDialog(null, "La tabla ya ha sido migrada a una colleccion de Mongo. Chequee su gestor MongoDBCompass.");
 				} catch (Exception exc) {
-					exc.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Error al intentar migrar la tabla, chequee si su gestor esta instalado y funcionando.");
 				}
 			}
 		};
@@ -198,7 +198,7 @@ public class VentanaRespaldo extends JFrame{
 				} catch (MongoCommandException exc) {
 					JOptionPane.showMessageDialog(null, "La tabla ya ha sido migrada a una colleccion de Mongo. Chequee su gestor MongoDBCompass");
 				} catch (Exception exc) {
-					exc.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Error al intentar migrar la tabla, chequee si su gestor esta instalado y funcionando.");
 				}
 			}
 		};
